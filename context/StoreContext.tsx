@@ -117,7 +117,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [products, setProducts] = useState<Product[]>(() => {
     if (typeof window !== 'undefined') {
       try {
-        const saved = localStorage.getItem('ismail_products_v5');
+        const saved = localStorage.getItem('ismail_products_v6');
         if (saved) return JSON.parse(saved);
       } catch {}
     }
@@ -197,7 +197,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   useEffect(() => {
     try {
-      localStorage.setItem('ismail_products_v5', JSON.stringify(products));
+      localStorage.setItem('ismail_products_v6', JSON.stringify(products));
     } catch {}
   }, [products]);
 

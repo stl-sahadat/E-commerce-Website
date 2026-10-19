@@ -43,7 +43,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
       silhouette: 'kabli-suit',
       colorHex: '#121214',
       bgTone: '#000000',
-      count: '4 Styles',
+      count: '3 Styles',
       image: '/images/products/m-kabli-01.jpg',
     },
     {
@@ -54,7 +54,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
       silhouette: 'waistcoat-koti',
       colorHex: '#63532C',
       bgTone: '#4a3d1e',
-      count: '3 Styles',
+      count: '2 Styles',
       image: '/images/products/m-waistcoat-01.jpg',
     },
     {
@@ -100,7 +100,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
       silhouette: 'saree-silk',
       colorHex: '#581F2F',
       bgTone: '#3e1521',
-      count: '4 Styles',
+      count: '3 Styles',
       image: '/images/products/w-saree-03.jpg',
     },
     {

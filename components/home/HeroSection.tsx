@@ -1,9 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useStore } from '@/context/StoreContext';
-import { GarmentVisual } from '@/components/garment/GarmentVisual';
-import { Sparkles, ArrowRight, ShieldCheck, Truck, RefreshCw } from 'lucide-react';
+import { Sparkles, ArrowRight, ShieldCheck, Truck, RefreshCw, Moon, Crown, Award } from 'lucide-react';
 
 interface HeroSectionProps {
   onShopNow: () => void;
@@ -12,8 +11,90 @@ interface HeroSectionProps {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOccasion }) => {
   const { gender, theme, setSelectedCategory } = useStore();
+  const [activeSlide, setActiveSlide] = useState(0);
 
   const isMen = gender === 'men';
+
+  const menHeroSlides = [
+    {
+      title: 'ISMAIL FASHION Royal Emerald Silk Panjabi',
+      bangla: 'রয়েল এমারেল্ড এমব্রয়ডারি সিল্ক পাঞ্জাবি',
+      price: '৳৫,৪৫০',
+      tag: 'Festive Eid Edit',
+      image: '/images/products/m-panjabi-01.jpg',
+      category: 'panjabi',
+      origin: 'Mirpur Weavers Colony, Dhaka',
+    },
+    {
+      title: 'ISMAIL FASHION Heritage Black Zari Kabli Set',
+      bangla: 'হেরিটেজ ব্ল্যাক জারি-স্টিচড কাবলি সেট',
+      price: '৳৫,৮০০',
+      tag: 'Two-Piece Ensemble',
+      image: '/images/products/m-kabli-01.jpg',
+      category: 'kabli-kurta',
+      origin: 'Atelier Tailors, Dhaka',
+    },
+    {
+      title: 'ISMAIL FASHION Royal Brocade Heritage Koti',
+      bangla: 'রয়েল ব্রোকেড হেরিটেজ কোটি (Waistcoat)',
+      price: '৳৪,২৫০',
+      tag: 'Wedding Atelier',
+      image: '/images/products/m-waistcoat-01.jpg',
+      category: 'waistcoats',
+      origin: 'Banarasi Palli, Mirpur',
+    },
+    {
+      title: 'ISMAIL FASHION Classic Aligari Pure Cotton Pajama',
+      bangla: 'ক্লাসিক হোয়াইট আলিগড়ি সুতি পায়জামা',
+      price: '৳১,২৫০',
+      tag: '100% Combed Cotton',
+      image: '/images/products/m-pajama-01.jpg',
+      category: 'pajama-sets',
+      origin: 'Babu Bazar Handloom Market',
+    },
+  ];
+
+  const womenHeroSlides = [
+    {
+      title: 'ISMAIL FASHION Heritage Dhakai Jamdani Muslin Saree',
+      bangla: 'ঐতিহ্যবাহী ঢাকাই জামদানি মসলিন শাড়ি',
+      price: '৳১৮,৫০০',
+      tag: 'UNESCO World Heritage',
+      image: '/images/products/w-saree-01.jpg',
+      category: 'jamdani-saree',
+      origin: 'Demra & Sonargaon Pit Looms',
+    },
+    {
+      title: 'ISMAIL FASHION Rajshahi Pure Silk Floral Zari Saree',
+      bangla: 'রাজশাহী পিওর সিল্ক ফ্লোরাল জারি শাড়ি',
+      price: '৳১৪,২০০',
+      tag: 'Sericulture Mulberry Silk',
+      image: '/images/products/w-saree-03.jpg',
+      category: 'silk-saree',
+      origin: 'Silk City, Rajshahi',
+    },
+    {
+      title: 'ISMAIL FASHION Velvet Touch Embroidered Three-Piece',
+      bangla: 'ভেলভেট টাচ কারুকাজ খচিত থ্রি-পিস সেট',
+      price: '৳৮,৯৫০',
+      tag: 'Festive Luxury Suite',
+      image: '/images/products/w-three-piece-01.jpg',
+      category: 'three-piece',
+      origin: 'Artisan Atelier, Dhaka',
+    },
+    {
+      title: 'ISMAIL FASHION Royal Crimson Banarasi Katan Bridal Saree',
+      bangla: 'রয়েল ক্রিমসন বেনারসি কাতান ব্রাইডাল শাড়ি',
+      price: '৳২৪,৫০০',
+      tag: 'Royal Bridal Atelier',
+      image: '/images/products/w-saree-08.jpg',
+      category: 'party-wedding-saree',
+      origin: 'Mirpur Benarasi Palli',
+    },
+  ];
+
+  const heroSlides = isMen ? menHeroSlides : womenHeroSlides;
+  const currentSlide = heroSlides[activeSlide] || heroSlides[0];
 
   return (
     <section
@@ -41,20 +122,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOc
             {/* Kicker */}
             <div className="flex items-center gap-2">
               <span
-                className="text-xs uppercase tracking-[0.22em] font-semibold"
+                className="text-xs uppercase tracking-[0.25em] font-bold"
                 style={{ color: theme.primary }}
               >
-                {isMen ? 'ISMAIL FASHION · পাঞ্জাবি ও পায়জামা' : 'ISMAIL FASHION · শাড়ি ও থ্রি-পিস'}
+                {isMen ? 'ISMAIL FASHION · পাঞ্জাবি, পায়জামা ও কোটি' : 'ISMAIL FASHION · শাড়ি, থ্রি-পিস ও লেহেঙ্গা'}
               </span>
               <span className="text-stone-300">|</span>
-              <span className="text-xs font-bangla text-stone-500">
-                {isMen ? 'আভিজাত্য ও ঐতিহ্য' : 'বাংলার সেরা কালেকশন'}
+              <span className="text-xs font-bangla text-stone-600 font-medium">
+                {isMen ? 'আভিজাত্য ও ঐতিহ্যের মেলবন্ধন' : 'শতভাগ খাঁটি দেশীয় বুনন'}
               </span>
             </div>
 
-            {/* Main Headline */}
+            {/* Main Headline (Playfair Editorial Serif) */}
             <h1
-              className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.12] text-stone-900"
+              className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.14] text-stone-900"
               style={{
                 textWrap: 'balance',
               }}
@@ -66,13 +147,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOc
                     className="italic font-normal"
                     style={{ color: theme.primary }}
                   >
-                    Premium Panjabis
+                    Royal Panjabis
                   </span>{' '}
                   &amp; Classic Pajamas
                 </>
               ) : (
                 <>
-                  The Elegance of{' '}
+                  The Grandeur of{' '}
                   <span
                     className="italic font-normal"
                     style={{ color: theme.primary }}
@@ -80,7 +161,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOc
                     Dhakai Jamdani
                   </span>{' '}
                   <br className="hidden sm:inline" />
-                  &amp; Exclusive Three-Piece
+                  &amp; Festive Three-Piece
                 </>
               )}
             </h1>
@@ -88,78 +169,111 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOc
             {/* Subheading */}
             <p className="text-sm sm:text-base text-stone-600 max-w-xl font-sans leading-relaxed">
               {isMen
-                ? 'ইসমাইল ফ্যাশন (ISMAIL FASHION) নিয়ে এসেছে প্রিমিয়াম সিল্ক ও খাদি পাঞ্জাবি, আরামদায়ক সুতি পায়জামা, কাবলি এবং আভিজাত্য কোটি। নিজস্ব দক্ষ কারিগর দ্বারা নিখুঁত ফিনিশিং।'
+                ? 'ইসমাইল ফ্যাশন (ISMAIL FASHION) নিয়ে এসেছে প্রিমিয়াম সিল্ক ও খাদি পাঞ্জাবি, আরামদায়ক সুতি পায়জামা, কাবলি এবং আভিজাত্য কোটি। নিজস্ব দক্ষ কারিগর দ্বারা নিখুঁত ফিনিশিং ও শতভাগ কাপড়ের নিশ্চয়তা।'
                 : 'ইসমাইল ফ্যাশনের বিশ্বস্ত সংগ্রহে থাকছে খাঁটি ঢাকাই জামদানি, পিওর রাজশাহী সিল্ক শাড়ি, সুতি তাঁতের শাড়ি এবং উৎসবের আকর্ষণীয় এক্সক্লুসিভ থ্রি-পিস ও সালোয়ার স্যুট।'}
             </p>
 
-            {/* CTAs */}
+            {/* Primary Action Buttons */}
             <div className="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
               <button
                 type="button"
                 onClick={onShopNow}
-                className="px-6 py-3.5 rounded-full text-xs sm:text-sm font-medium tracking-wider uppercase text-white transition-all shadow-md hover:shadow-lg flex items-center gap-2 cursor-pointer group"
+                className="px-6 py-3.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider uppercase text-white transition-all shadow-md hover:shadow-xl flex items-center gap-2 cursor-pointer group"
                 style={{
                   backgroundColor: theme.primary,
                 }}
               >
-                <span>{isMen ? "Shop Men's Catalog" : 'Explore Sarees & Sets'}</span>
+                <span>{isMen ? "Explore Men's Catalog" : 'Explore Sarees & Sets'}</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </button>
 
               <button
                 type="button"
                 onClick={() => onExploreOccasion('wedding')}
-                className="px-5 py-3.5 rounded-full text-xs sm:text-sm font-medium tracking-wider uppercase border border-stone-300 hover:border-stone-400 bg-white/70 hover:bg-white text-stone-800 transition-all cursor-pointer flex items-center gap-2"
+                className="px-5 py-3.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider uppercase border border-stone-300 hover:border-stone-400 bg-white/85 hover:bg-white text-stone-900 transition-all cursor-pointer flex items-center gap-2 shadow-2xs"
               >
-                <Sparkles className="w-3.5 h-3.5 text-[#D4B779]" />
-                <span>Wedding Collection</span>
+                <Crown className="w-4 h-4 text-[#D4B779]" />
+                <span>Wedding Atelier</span>
               </button>
             </div>
 
-            {/* Trust Points / Micro-Proof Strip */}
-            <div className="pt-6 border-t border-stone-200/80 grid grid-cols-3 gap-2 sm:gap-4 text-left">
+            {/* Aza Fashions Style: Occasion Curation Ribbon Strip */}
+            <div className="pt-2">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-stone-500 block mb-2">
+                Curated Occasions:
+              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => onExploreOccasion('eid')}
+                  className="px-3 py-1.5 rounded-lg bg-white/90 hover:bg-white border border-stone-200 text-xs font-medium text-stone-800 transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer hover:border-stone-400"
+                >
+                  <Moon className="w-3.5 h-3.5 text-emerald-700" />
+                  <span>Eid Festive Edit 2026</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onExploreOccasion('wedding')}
+                  className="px-3 py-1.5 rounded-lg bg-white/90 hover:bg-white border border-stone-200 text-xs font-medium text-stone-800 transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer hover:border-stone-400"
+                >
+                  <Crown className="w-3.5 h-3.5 text-[#D4B779]" />
+                  <span>Royal Wedding Atelier</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onExploreOccasion('festival')}
+                  className="px-3 py-1.5 rounded-lg bg-white/90 hover:bg-white border border-stone-200 text-xs font-medium text-stone-800 transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer hover:border-stone-400"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                  <span>Cultural Handloom</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Trust Points / Micro-Proof Strip (Khunchi Style) */}
+            <div className="pt-4 border-t border-stone-200/80 grid grid-cols-3 gap-2 sm:gap-4 text-left">
               <div className="space-y-1">
-                <span className="flex items-center gap-1.5 text-xs font-semibold text-stone-900">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#D4B779]" /> 100% Authentic
+                <span className="flex items-center gap-1.5 text-xs font-bold text-stone-900">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#D4B779]" /> ১০০% খাঁটি পণ্য
                 </span>
                 <p className="text-[11px] text-stone-500 leading-tight">
-                  Handloom &amp; silk certified
+                  হ্যান্ডলুম ও সিল্ক নিশ্চয়তা
                 </p>
               </div>
 
               <div className="space-y-1">
-                <span className="flex items-center gap-1.5 text-xs font-semibold text-stone-900">
-                  <Truck className="w-3.5 h-3.5 text-[#D4B779]" /> COD Nationwide
+                <span className="flex items-center gap-1.5 text-xs font-bold text-stone-900">
+                  <Truck className="w-3.5 h-3.5 text-[#D4B779]" /> ক্যাশ অন ডেলিভারি
                 </span>
                 <p className="text-[11px] text-stone-500 leading-tight">
-                  Delivery in 24–72 hours
+                  সারা দেশে দ্রুত ডেলিভারি
                 </p>
               </div>
 
               <div className="space-y-1">
-                <span className="flex items-center gap-1.5 text-xs font-semibold text-stone-900">
-                  <RefreshCw className="w-3.5 h-3.5 text-[#D4B779]" /> 7-Day Exchange
+                <span className="flex items-center gap-1.5 text-xs font-bold text-stone-900">
+                  <RefreshCw className="w-3.5 h-3.5 text-[#D4B779]" /> ৭ দিনে এক্সচেঞ্জ
                 </span>
                 <p className="text-[11px] text-stone-500 leading-tight">
-                  Hassle-free size adjustment
+                  সহজ সাইজ পরিবর্তন সুবিধা
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Hero Garment Showcase Display */}
+          {/* Right Column: Hero Interactive Garment Showcase Display */}
           <div className="lg:col-span-5 relative">
             <div
-              className="relative aspect-4/5 w-full rounded-2xl overflow-hidden shadow-xl border transition-all duration-500"
+              className="relative aspect-4/5 w-full rounded-2xl overflow-hidden shadow-2xl border transition-all duration-500"
               style={{
                 borderColor: theme.borderTone,
                 backgroundColor: theme.surfaceBg,
               }}
             >
-              {/* Garment Studio Visual - Real Photography with subtle zoom */}
+              {/* Garment Studio Visual */}
               <img
-                src={isMen ? '/images/products/m-panjabi-01.jpg' : '/images/products/w-saree-01.jpg'}
-                alt={isMen ? 'ISMAIL FASHION Mastercraft Panjabi' : 'ISMAIL FASHION Heritage Jamdani Saree'}
+                src={currentSlide.image}
+                alt={currentSlide.title}
                 className="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105"
               />
 
@@ -168,42 +282,62 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOc
                 className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-stone-200/80 shadow-xs flex items-center gap-1.5"
               >
                 <span className="w-2 h-2 rounded-full" style={{ backgroundColor: theme.primary }} />
-                <span className="text-[11px] font-sans font-medium uppercase tracking-wider text-stone-800">
-                  {isMen ? 'Mastercraft Panjabi' : 'Heritage Jamdani Saree'}
+                <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-stone-900">
+                  {currentSlide.tag}
                 </span>
+              </div>
+
+              {/* Floating Weave Origin Tag (Fabindia style) */}
+              <div
+                className="absolute top-4 right-4 bg-stone-900/80 text-white backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-sans font-medium"
+              >
+                {currentSlide.origin.split(',')[0]}
               </div>
 
               {/* Bottom Details Card Overlay */}
               <div
-                className="absolute bottom-4 inset-x-4 p-3.5 rounded-xl bg-white/95 backdrop-blur-md border border-stone-200/80 shadow-md flex items-center justify-between"
+                className="absolute bottom-4 inset-x-4 p-4 rounded-xl bg-white/95 backdrop-blur-md border border-stone-200/80 shadow-lg flex items-center justify-between"
               >
                 <div>
-                  <span className="text-[10px] uppercase tracking-wider text-stone-500 font-medium block">
-                    {isMen ? 'Featured Silhouette' : 'Artisan Weave'}
+                  <span className="text-[10px] uppercase tracking-wider text-stone-500 font-semibold block">
+                    {currentSlide.bangla}
                   </span>
-                  <h4 className="text-xs font-semibold text-stone-900 truncate max-w-[200px] sm:max-w-[260px]">
-                    {isMen
-                      ? 'ISMAIL FASHION Royal Emerald Silk Panjabi'
-                      : 'ISMAIL FASHION Heritage Dhakai Jamdani Saree'}
+                  <h4 className="text-xs font-bold text-stone-900 truncate max-w-[200px] sm:max-w-[240px]">
+                    {currentSlide.title}
                   </h4>
                 </div>
                 <div className="text-right">
                   <span className="text-xs font-serif font-bold text-stone-900 block tabular-nums">
-                    {isMen ? '৳5,450' : '৳18,500'}
+                    {currentSlide.price}
                   </span>
                   <button
                     type="button"
                     onClick={() => {
-                      setSelectedCategory(isMen ? 'panjabi' : 'sarees');
+                      setSelectedCategory(currentSlide.category);
                       onShopNow();
                     }}
-                    className="text-[10px] font-medium tracking-wide uppercase hover:underline cursor-pointer"
+                    className="text-[10px] font-bold tracking-wide uppercase hover:underline cursor-pointer"
                     style={{ color: theme.primary }}
                   >
-                    View Details →
+                    Explore Piece →
                   </button>
                 </div>
               </div>
+            </div>
+
+            {/* Thumbnail Selectors to Switch Garment in Hero */}
+            <div className="flex items-center justify-center gap-2 mt-3">
+              {heroSlides.map((slide, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => setActiveSlide(idx)}
+                  className={`h-2 rounded-full transition-all ${
+                    activeSlide === idx ? 'w-8 bg-stone-900' : 'w-2 bg-stone-300 hover:bg-stone-500'
+                  }`}
+                  aria-label={`View slide ${idx + 1}`}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -211,3 +345,4 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOc
     </section>
   );
 };
+

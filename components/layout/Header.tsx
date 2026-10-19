@@ -13,6 +13,11 @@ import {
   MapPin,
   Sparkles,
   ChevronDown,
+  Truck,
+  ShieldCheck,
+  RefreshCw,
+  Home,
+  Grid,
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -25,7 +30,8 @@ interface NavItem {
   category?: string;
   filter?: string;
   id?: string;
-  subItems?: { label: string; category?: string; filter?: string }[];
+  countKey?: string;
+  subItems?: { label: string; category?: string; filter?: string; countKey?: string }[];
 }
 
 export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog }) => {
@@ -41,8 +47,11 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog
     setIsAdminOpen,
     searchQuery,
     setSearchQuery,
+    selectedCategory,
     setSelectedCategory,
+    selectedCollection,
     setSelectedCollection,
+    products,
   } = useStore();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -50,47 +59,78 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog
   const [sareeDropdownOpen, setSareeDropdownOpen] = useState(false);
   const [mobileSareeOpen, setMobileSareeOpen] = useState(false);
 
+  // Calculate live counts
+  const getNavCount = (catOrFilter?: string, isCategory = true) => {
+    if (!catOrFilter || catOrFilter === 'all') {
+      return products.filter((p) => p.gender === gender).length;
+    }
+    if (catOrFilter === 'wedding' || catOrFilter === 'eid' || catOrFilter === 'festival') {
+      return products.filter((p) => p.gender === gender && p.collection === catOrFilter).length;
+    }
+    if (catOrFilter === 'new-arrivals') {
+      return products.filter((p) => p.gender === gender && p.isNewArrival).length;
+    }
+    if (catOrFilter === 'best-sellers') {
+      return products.filter((p) => p.gender === gender && p.isBestSeller).length;
+    }
+    if (isCategory) {
+      if (catOrFilter === 'sarees') {
+        return products.filter((p) => p.gender === gender && p.category === 'sarees').length;
+      }
+      if (catOrFilter === 'jamdani-saree') {
+        return products.filter((p) => p.subCategory === 'Jamdani Saree').length;
+      }
+      if (catOrFilter === 'silk-saree') {
+        return products.filter((p) => p.subCategory === 'Silk Saree').length;
+      }
+      if (catOrFilter === 'cotton-saree') {
+        return products.filter((p) => p.subCategory === 'Cotton Saree').length;
+      }
+      if (catOrFilter === 'tant-saree') {
+        return products.filter((p) => p.subCategory === 'Tant Saree').length;
+      }
+      if (catOrFilter === 'party-wedding-saree') {
+        return products.filter((p) => p.subCategory === 'Party and Wedding Saree').length;
+      }
+      return products.filter((p) => p.gender === gender && p.category === catOrFilter).length;
+    }
+    return 0;
+  };
+
   const menNavLinks: NavItem[] = [
-    { label: 'Home', id: 'hero' },
-    { label: "All Men's Wear", category: 'all' },
-    { label: 'Panjabi', category: 'panjabi' },
-    { label: 'Kabli & Kurta', category: 'kabli-kurta' },
-    { label: 'Pajama Sets', category: 'pajama-sets' },
-    { label: 'Waistcoats', category: 'waistcoats' },
-    { label: 'New Arrivals', filter: 'new-arrivals' },
-    { label: 'Festival', filter: 'festival' },
-    { label: 'Wedding', filter: 'wedding' },
-    { label: 'Brand Heritage', id: 'story' },
-    { label: 'Contact', id: 'footer' },
+    { label: 'All Men', category: 'all', countKey: 'all' },
+    { label: 'Panjabi', category: 'panjabi', countKey: 'panjabi' },
+    { label: 'Kabli & Kurta', category: 'kabli-kurta', countKey: 'kabli-kurta' },
+    { label: 'Pajama Sets', category: 'pajama-sets', countKey: 'pajama-sets' },
+    { label: 'Waistcoats (Koti)', category: 'waistcoats', countKey: 'waistcoats' },
+    { label: 'Eid Edit', filter: 'eid', countKey: 'eid' },
+    { label: 'Wedding Atelier', filter: 'wedding', countKey: 'wedding' },
+    { label: 'Brand Story', id: 'story' },
   ];
 
   const womenNavLinks: NavItem[] = [
-    { label: 'Home', id: 'hero' },
-    { label: "All Women's Wear", category: 'all' },
+    { label: 'All Women', category: 'all', countKey: 'all' },
     {
-      label: 'All Sarees',
+      label: 'Sarees',
       category: 'sarees',
+      countKey: 'sarees',
       subItems: [
-        { label: 'All Sarees Collection', category: 'sarees' },
-        { label: 'Dhakai Jamdani Saree', category: 'jamdani-saree' },
-        { label: 'Rajshahi Pure Silk Saree', category: 'silk-saree' },
-        { label: 'Tangail Cotton Saree', category: 'cotton-saree' },
-        { label: 'Traditional Tant Saree', category: 'tant-saree' },
-        { label: 'Party and Wedding Saree', category: 'party-wedding-saree' },
+        { label: 'All Sarees', category: 'sarees', countKey: 'sarees' },
+        { label: 'Dhakai Jamdani', category: 'jamdani-saree', countKey: 'jamdani-saree' },
+        { label: 'Rajshahi Pure Silk', category: 'silk-saree', countKey: 'silk-saree' },
+        { label: 'Tangail Cotton', category: 'cotton-saree', countKey: 'cotton-saree' },
+        { label: 'Heritage Tant', category: 'tant-saree', countKey: 'tant-saree' },
+        { label: 'Bridal & Party Katan', category: 'party-wedding-saree', countKey: 'party-wedding-saree' },
       ],
     },
-    { label: 'Three Piece', category: 'three-piece' },
-    { label: 'Salwar Kameez', category: 'salwar-kameez' },
-    { label: 'Kurti', category: 'kurtis' },
-    { label: 'Lehenga & Party', category: 'lehenga' },
-    { label: 'Hijab', category: 'hijab' },
-    { label: 'Dupatta & Orna', category: 'dupatta-orna' },
-    { label: 'New Arrivals', filter: 'new-arrivals' },
-    { label: 'Best Sellers', filter: 'best-sellers' },
-    { label: 'Eid Collection', filter: 'eid' },
-    { label: 'Wedding Collection', filter: 'wedding' },
-    { label: 'Brand Heritage', id: 'story' },
-    { label: 'Contact', id: 'footer' },
+    { label: 'Three Piece', category: 'three-piece', countKey: 'three-piece' },
+    { label: 'Salwar Kameez', category: 'salwar-kameez', countKey: 'salwar-kameez' },
+    { label: 'Kurti', category: 'kurtis', countKey: 'kurtis' },
+    { label: 'Lehenga', category: 'lehenga', countKey: 'lehenga' },
+    { label: 'Hijab', category: 'hijab', countKey: 'hijab' },
+    { label: 'Dupatta & Orna', category: 'dupatta-orna', countKey: 'dupatta-orna' },
+    { label: 'Wedding Atelier', filter: 'wedding', countKey: 'wedding' },
+    { label: 'Brand Story', id: 'story' },
   ];
 
   const currentNav = gender === 'men' ? menNavLinks : womenNavLinks;
@@ -129,38 +169,32 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog
     setMobileSearchOpen(false);
   };
 
+  const tickerItems = [
+    'ক্যাশ অন ডেলিভারি (Cash on Delivery) সমগ্র বাংলাদেশে',
+    '৳৫,০০০ এর অর্ডারে ফ্রি এক্সপ্রেস ডেলিভারি',
+    '১০০% খাঁটি ঢাকাই জামদানি ও সিল্ক গ্যারান্টি',
+    '৭ দিনে সহজ সাইজ পরিবর্তন ও রিটার্ন সুবিধা',
+    'ফ্ল্যাগশিপ আউটলেট: রোড ১১, বনানী ও গুলশান, ঢাকা',
+    'অর্ডার ও কাস্টমার সাপোর্ট: +৮৮০ ১৭০০-০০০০০০',
+  ];
+
   return (
     <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md shadow-xs transition-colors duration-500">
-      {/* Top micro-announcement bar */}
+      {/* Khunchi-Style Continuous Animated Marquee Ticker */}
       <div
-        className="w-full text-xs font-medium py-1.5 px-4 text-center transition-colors duration-500 flex items-center justify-between"
+        className="w-full text-xs font-medium py-1.5 overflow-hidden transition-colors duration-500 border-b border-black/10"
         style={{
           backgroundColor: theme.charcoalOrBurgundy,
           color: '#F7F4EC',
         }}
       >
-        <div className="hidden md:flex items-center gap-4 text-[11px] opacity-80">
-          <span className="flex items-center gap-1">
-            <MapPin className="w-3 h-3 text-[#D4B779]" /> Flagship Atelier: Banani &amp; Gulshan, Dhaka
-          </span>
-          <span className="opacity-50">·</span>
-          <span className="flex items-center gap-1">
-            <Phone className="w-3 h-3 text-[#D4B779]" /> +880 1700-000000
-          </span>
-        </div>
-
-        <div className="mx-auto md:mx-0 flex items-center gap-1 text-[11px] sm:text-xs tracking-wide">
-          <Sparkles className="w-3 h-3 text-[#D4B779]" />
-          <span>Complimentary Express Delivery on orders above ৳5,000 · Cash on Delivery</span>
-        </div>
-
-        <div className="hidden md:flex items-center gap-3 text-[11px]">
-          <button
-            onClick={() => setIsAdminOpen(true)}
-            className="hover:text-[#D4B779] transition-colors cursor-pointer flex items-center gap-1"
-          >
-            <SlidersHorizontal className="w-3 h-3" /> Store Admin
-          </button>
+        <div className="animate-marquee whitespace-nowrap flex items-center">
+          {[...tickerItems, ...tickerItems].map((item, idx) => (
+            <span key={idx} className="mx-6 inline-flex items-center gap-2.5 text-[11px] tracking-wide font-bangla opacity-95">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#D4B779]" />
+              {item}
+            </span>
+          ))}
         </div>
       </div>
 
@@ -391,17 +425,32 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog
                 );
               }
 
+              const count = link.countKey ? getNavCount(link.countKey, !link.filter) : null;
+              const isActive =
+                (link.category && selectedCategory === link.category) ||
+                (link.filter && selectedCollection === link.filter);
+
               return (
                 <button
                   key={link.label}
                   type="button"
                   onClick={() => handleLinkClick(link)}
-                  className="text-stone-700 hover:text-stone-950 py-1 transition-colors relative whitespace-nowrap cursor-pointer hover:underline underline-offset-4 decoration-1"
-                  style={{
-                    textDecorationColor: theme.accentGold,
-                  }}
+                  className={`py-1 px-2.5 rounded-full transition-all relative whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
+                    isActive
+                      ? 'bg-stone-900 text-white font-semibold shadow-2xs'
+                      : 'text-stone-700 hover:text-stone-950 hover:bg-black/5'
+                  }`}
                 >
-                  {link.label}
+                  <span>{link.label}</span>
+                  {count !== null && count > 0 && (
+                    <span
+                      className={`text-[10px] px-1.5 py-0.2 rounded-full tabular-nums ${
+                        isActive ? 'bg-white/20 text-white' : 'bg-stone-200/80 text-stone-600'
+                      }`}
+                    >
+                      {count}
+                    </span>
+                  )}
                 </button>
               );
             })}
@@ -483,6 +532,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog
             {/* Navigation Links */}
             <div className="flex-1 py-3 px-4 space-y-1">
               {currentNav.map((link) => {
+                const count = link.countKey ? getNavCount(link.countKey, !link.filter) : null;
                 if (link.subItems) {
                   return (
                     <div key={link.label} className="border-b border-stone-100 pb-1 mb-1">
@@ -491,7 +541,12 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog
                         onClick={() => setMobileSareeOpen(!mobileSareeOpen)}
                         className="w-full text-left py-2.5 px-3 rounded-md text-sm font-semibold text-stone-900 flex items-center justify-between"
                       >
-                        <span>{link.label}</span>
+                        <span className="flex items-center gap-1.5">
+                          {link.label}
+                          {count !== null && (
+                            <span className="text-[10px] text-stone-500 font-normal">({count})</span>
+                          )}
+                        </span>
                         <ChevronDown
                           className={`w-4 h-4 text-stone-400 transition-transform ${
                             mobileSareeOpen ? 'rotate-180' : ''
@@ -501,17 +556,22 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog
 
                       {mobileSareeOpen && (
                         <div className="pl-4 space-y-1 pt-1 pb-2 bg-stone-50/50 rounded-lg">
-                          {link.subItems.map((sub) => (
-                            <button
-                              key={sub.label}
-                              type="button"
-                              onClick={() => handleLinkClick(sub)}
-                              className="w-full text-left py-2 px-3 text-xs text-stone-700 hover:text-stone-950 flex items-center justify-between"
-                            >
-                              <span>{sub.label}</span>
-                              <span className="text-stone-300 text-[10px]">→</span>
-                            </button>
-                          ))}
+                          {link.subItems.map((sub) => {
+                            const subCount = sub.countKey ? getNavCount(sub.countKey, true) : null;
+                            return (
+                              <button
+                                key={sub.label}
+                                type="button"
+                                onClick={() => handleLinkClick(sub)}
+                                className="w-full text-left py-2 px-3 text-xs text-stone-700 hover:text-stone-950 flex items-center justify-between"
+                              >
+                                <span>{sub.label}</span>
+                                <span className="text-stone-400 text-[10px]">
+                                  {subCount !== null ? `(${subCount})` : '→'}
+                                </span>
+                              </button>
+                            );
+                          })}
                         </div>
                       )}
                     </div>
@@ -525,7 +585,12 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog
                     onClick={() => handleLinkClick(link)}
                     className="w-full text-left py-2.5 px-3 rounded-md text-sm font-medium text-stone-800 hover:bg-stone-50 transition-colors flex items-center justify-between"
                   >
-                    <span>{link.label}</span>
+                    <span className="flex items-center gap-1.5">
+                      {link.label}
+                      {count !== null && count > 0 && (
+                        <span className="text-[10px] text-stone-500 font-normal">({count})</span>
+                      )}
+                    </span>
                     <span className="text-stone-300 text-xs">→</span>
                   </button>
                 );
@@ -545,12 +610,88 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog
                 <SlidersHorizontal className="w-3.5 h-3.5" /> Store Admin Dashboard
               </button>
               <div className="text-[11px] text-stone-500 text-center pt-2">
-                Traditional Bangladeshi Craftsmanship
+                Traditional Bangladeshi Craftsmanship · ISMAIL FASHION
               </div>
             </div>
           </div>
         </div>
       )}
+
+      {/* Khunchi-Style Mobile Sticky Bottom Navigation Bar */}
+      <nav
+        aria-label="Mobile Bottom Navigation"
+        className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200/90 shadow-lg py-1.5 px-3 flex items-center justify-around"
+      >
+        <button
+          type="button"
+          onClick={() => {
+            const el = document.getElementById('hero');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="flex flex-col items-center gap-0.5 text-stone-600 hover:text-stone-950 p-1"
+        >
+          <Home className="w-5 h-5" />
+          <span className="text-[10px] font-medium font-sans">Home</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => {
+            if (onOpenCatalog) onOpenCatalog();
+            const el = document.getElementById('catalog');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="flex flex-col items-center gap-0.5 text-stone-600 hover:text-stone-950 p-1"
+        >
+          <Grid className="w-5 h-5" />
+          <span className="text-[10px] font-medium font-sans">Catalog</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setIsWishlistOpen(true)}
+          className="relative flex flex-col items-center gap-0.5 text-stone-600 hover:text-stone-950 p-1"
+        >
+          <Heart className="w-5 h-5" />
+          {wishlist.length > 0 && (
+            <span
+              className="absolute top-0 right-1 w-3.5 h-3.5 rounded-full text-[9px] font-bold flex items-center justify-center text-white"
+              style={{ backgroundColor: theme.primary }}
+            >
+              {wishlist.length}
+            </span>
+          )}
+          <span className="text-[10px] font-medium font-sans">Wishlist</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setIsCartOpen(true)}
+          className="relative flex flex-col items-center gap-0.5 text-stone-600 hover:text-stone-950 p-1"
+        >
+          <ShoppingBag className="w-5 h-5" style={{ color: theme.primary }} />
+          {cartCount > 0 && (
+            <span
+              className="absolute top-0 right-1 w-3.5 h-3.5 rounded-full text-[9px] font-bold flex items-center justify-center text-white"
+              style={{ backgroundColor: theme.primary }}
+            >
+              {cartCount}
+            </span>
+          )}
+          <span className="text-[10px] font-medium font-sans font-bold text-stone-900">
+            ৳{cartSubtotal > 0 ? `${cartSubtotal.toLocaleString()}` : 'Bag'}
+          </span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setIsAdminOpen(true)}
+          className="flex flex-col items-center gap-0.5 text-stone-600 hover:text-stone-950 p-1"
+        >
+          <SlidersHorizontal className="w-5 h-5" />
+          <span className="text-[10px] font-medium font-sans">Admin</span>
+        </button>
+      </nav>
     </header>
   );
 };

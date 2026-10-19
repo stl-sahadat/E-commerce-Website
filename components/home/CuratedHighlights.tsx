@@ -16,12 +16,42 @@ export const CuratedHighlights: React.FC<CuratedHighlightsProps> = ({
   onViewAllCatalog,
 }) => {
   const { gender, theme, currentProducts } = useStore();
-  const [activeTab, setActiveTab] = useState<'new-arrivals' | 'best-sellers'>('new-arrivals');
+  const [activeTab, setActiveTab] = useState<'new-arrivals' | 'best-sellers' | 'wedding' | 'eid'>('new-arrivals');
 
   const newArrivals = currentProducts.filter((p) => p.isNewArrival).slice(0, 4);
   const bestSellers = currentProducts.filter((p) => p.isBestSeller).slice(0, 4);
+  const weddingPicks = currentProducts.filter((p) => p.collection === 'wedding').slice(0, 4);
+  const eidPicks = currentProducts.filter((p) => p.collection === 'eid').slice(0, 4);
 
-  const displayedProducts = activeTab === 'new-arrivals' ? newArrivals : bestSellers;
+  const getDisplayedProducts = () => {
+    switch (activeTab) {
+      case 'new-arrivals':
+        return newArrivals;
+      case 'best-sellers':
+        return bestSellers;
+      case 'wedding':
+        return weddingPicks.length > 0 ? weddingPicks : bestSellers;
+      case 'eid':
+        return eidPicks.length > 0 ? eidPicks : newArrivals;
+      default:
+        return newArrivals;
+    }
+  };
+
+  const displayedProducts = getDisplayedProducts();
+
+  const getTabTitle = () => {
+    switch (activeTab) {
+      case 'new-arrivals':
+        return 'নতুন সিজনাল অ্যারাইভালস';
+      case 'best-sellers':
+        return 'জনপ্রিয় ও বেস্ট সেলিং পোশাক';
+      case 'wedding':
+        return 'রাজকীয় ওয়েডিং ও ব্রাইডাল স্পেশাল';
+      case 'eid':
+        return 'ঈদ উৎসব এক্সক্লুসিভ কালেকশন';
+    }
+  };
 
   return (
     <section className="py-14 sm:py-20 bg-white border-b border-stone-100">
@@ -31,37 +61,59 @@ export const CuratedHighlights: React.FC<CuratedHighlightsProps> = ({
           <div>
             <div className="flex items-center gap-1.5 mb-1 text-xs font-semibold uppercase tracking-wider" style={{ color: theme.primary }}>
               <Sparkles className="w-3.5 h-3.5 text-[#D4B779]" />
-              <span className="font-bangla">ইসমাইল ফ্যাশন বিশেষ সিলেকশন</span>
+              <span className="font-bangla">ইসমাইল ফ্যাশন কিউরেটেড কালেকশন</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-stone-900 font-normal">
-              {activeTab === 'new-arrivals' ? 'নতুন সিজনাল অ্যারাইভালস' : 'জনপ্রিয় ও সেরা কালেকশন'}
+              {getTabTitle()}
             </h2>
           </div>
 
           <div className="flex items-center gap-3">
             {/* Segmented Tab Filter */}
-            <div className="flex items-center p-1 bg-stone-100 rounded-lg text-xs font-medium">
+            <div className="flex flex-wrap items-center p-1 bg-stone-100 rounded-xl text-xs font-medium">
               <button
                 type="button"
                 onClick={() => setActiveTab('new-arrivals')}
-                className={`px-3 py-1.5 rounded-md transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
                   activeTab === 'new-arrivals'
                     ? 'bg-white text-stone-900 shadow-2xs font-semibold'
                     : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
-                New Arrivals
+                New Releases
               </button>
               <button
                 type="button"
                 onClick={() => setActiveTab('best-sellers')}
-                className={`px-3 py-1.5 rounded-md transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
                   activeTab === 'best-sellers'
                     ? 'bg-white text-stone-900 shadow-2xs font-semibold'
                     : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
                 Best Sellers
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab('wedding')}
+                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  activeTab === 'wedding'
+                    ? 'bg-white text-stone-900 shadow-2xs font-semibold'
+                    : 'text-stone-600 hover:text-stone-900'
+                }`}
+              >
+                Wedding Atelier
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab('eid')}
+                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  activeTab === 'eid'
+                    ? 'bg-white text-stone-900 shadow-2xs font-semibold'
+                    : 'text-stone-600 hover:text-stone-900'
+                }`}
+              >
+                Eid Festive
               </button>
             </div>
 
@@ -70,7 +122,7 @@ export const CuratedHighlights: React.FC<CuratedHighlightsProps> = ({
               onClick={onViewAllCatalog}
               className="hidden md:flex items-center gap-1 text-xs font-semibold text-stone-700 hover:text-stone-950 underline underline-offset-4 cursor-pointer"
             >
-              <span>View Full Catalog</span>
+              <span>Full Catalog</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>

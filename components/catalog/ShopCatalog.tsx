@@ -10,6 +10,8 @@ import {
   RotateCcw,
   Search,
   Sparkles,
+  Filter,
+  Check,
 } from 'lucide-react';
 
 interface ShopCatalogProps {
@@ -30,8 +32,12 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
   } = useStore();
 
   const [priceMax, setPriceMax] = useState<number>(35000);
+  const [priceBracket, setPriceBracket] = useState<string>('all');
   const [selectedSize, setSelectedSize] = useState<string>('all');
   const [selectedColor, setSelectedColor] = useState<string>('all');
+  const [selectedFabric, setSelectedFabric] = useState<string>('all');
+  const [selectedCraft, setSelectedCraft] = useState<string>('all');
+  const [selectedFit, setSelectedFit] = useState<string>('all');
   const [sortBy, setSortBy] = useState<
     'featured' | 'price-asc' | 'price-desc' | 'newest' | 'rating' | 'popularity'
   >('featured');
@@ -46,7 +52,7 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
     { key: 'pajama-sets', label: 'Pajama Sets' },
   ];
 
-  // Category definitions for Women (complete 17 categories)
+  // Category definitions for Women
   const womenCategories = [
     { key: 'all', label: "All Women's Wear" },
     { key: 'sarees', label: 'All Sarees' },
@@ -75,6 +81,54 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
       ? ['38', '40', '42', '44', '46']
       : ['36', '38', '40', '42', '44'];
 
+  // Fabric choices
+  const fabricOptions =
+    gender === 'men'
+      ? [
+          { key: 'all', label: 'All Fabrics' },
+          { key: 'silk', label: 'Mulberry Silk' },
+          { key: 'khadi', label: 'Handloom Khadi' },
+          { key: 'cotton', label: 'Combed / Giza Cotton' },
+          { key: 'linen', label: 'Pure Linen Blend' },
+          { key: 'brocade', label: 'Banarasi Brocade' },
+        ]
+      : [
+          { key: 'all', label: 'All Fabrics' },
+          { key: 'jamdani', label: 'Dhakai Muslin Jamdani' },
+          { key: 'silk', label: 'Rajshahi Pure Silk' },
+          { key: 'cotton', label: 'Tangail Handloom Cotton' },
+          { key: 'tant', label: 'Traditional Tant' },
+          { key: 'chanderi', label: 'Chanderi & Velvet' },
+          { key: 'modal', label: 'Modal / Chiffon' },
+        ];
+
+  // Craft / Work options
+  const craftOptions =
+    gender === 'men'
+      ? [
+          { key: 'all', label: 'All Crafts' },
+          { key: 'embroidery', label: 'Tone-on-Tone Resham' },
+          { key: 'zari', label: 'Zari Metallic Weave' },
+          { key: 'handloom', label: 'Hand-Spun Loom' },
+          { key: 'brocade', label: 'Jacquard Floral Jaal' },
+        ]
+      : [
+          { key: 'all', label: 'All Crafts' },
+          { key: 'pit-loom', label: 'Pit Loom Booti' },
+          { key: 'zardozi', label: 'Gold Zardozi & Zari' },
+          { key: 'nakshi', label: 'Nakshi Kantha Handwork' },
+          { key: 'block', label: 'Hand Block Print' },
+        ];
+
+  // Price brackets
+  const priceBrackets = [
+    { key: 'all', label: 'All Prices' },
+    { key: 'under-3k', label: 'Under ৳3,000', max: 3000 },
+    { key: '3k-6k', label: '৳3,000 – ৳6,000', min: 3000, max: 6000 },
+    { key: '6k-12k', label: '৳6,000 – ৳12,000', min: 6000, max: 12000 },
+    { key: 'above-12k', label: 'Above ৳12,000', min: 12000 },
+  ];
+
   // Color options present in catalog
   const availableColors = useMemo(() => {
     const map = new Map<string, string>();
@@ -98,11 +152,12 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
             p.category.toLowerCase().includes(q) ||
             p.subCategory.toLowerCase().includes(q) ||
             p.fabric.toLowerCase().includes(q) ||
+            p.weavingOrWork.toLowerCase().includes(q) ||
             (p.banglaName && p.banglaName.includes(q));
           if (!matches) return false;
         }
 
-        // Category filter (supports all 17 women categories)
+        // Category filter (supports all categories)
         if (selectedCategory !== 'all') {
           if (selectedCategory === 'sarees') {
             if (p.category !== 'sarees') return false;
@@ -153,7 +208,15 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
           }
         }
 
-        // Price filter
+        // Price bracket filter
+        if (priceBracket !== 'all') {
+          if (priceBracket === 'under-3k' && p.price >= 3000) return false;
+          if (priceBracket === '3k-6k' && (p.price < 3000 || p.price > 6000)) return false;
+          if (priceBracket === '6k-12k' && (p.price < 6000 || p.price > 12000)) return false;
+          if (priceBracket === 'above-12k' && p.price < 12000) return false;
+        }
+
+        // Price range slider filter
         if (p.price > priceMax) return false;
 
         // Size filter (only applies to products with stitched size options)
@@ -165,6 +228,33 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
         if (selectedColor !== 'all') {
           const hasColor = p.colors.some((c) => c.name === selectedColor);
           if (!hasColor) return false;
+        }
+
+        // Fabric filter
+        if (selectedFabric !== 'all') {
+          const f = p.fabric.toLowerCase();
+          if (selectedFabric === 'silk' && !f.includes('silk') && !f.includes('tussar')) return false;
+          if (selectedFabric === 'khadi' && !f.includes('khadi')) return false;
+          if (selectedFabric === 'cotton' && !f.includes('cotton') && !f.includes('giza')) return false;
+          if (selectedFabric === 'linen' && !f.includes('linen')) return false;
+          if (selectedFabric === 'brocade' && !f.includes('brocade') && !f.includes('jacquard')) return false;
+          if (selectedFabric === 'jamdani' && !f.includes('muslin') && !f.includes('jamdani')) return false;
+          if (selectedFabric === 'tant' && !f.includes('tant') && !f.includes('cotton')) return false;
+          if (selectedFabric === 'chanderi' && !f.includes('chanderi') && !f.includes('velvet')) return false;
+          if (selectedFabric === 'modal' && !f.includes('modal') && !f.includes('chiffon')) return false;
+        }
+
+        // Craft / Work filter
+        if (selectedCraft !== 'all') {
+          const w = (p.weavingOrWork + ' ' + p.patternDetail).toLowerCase();
+          if (selectedCraft === 'embroidery' && !w.includes('thread') && !w.includes('embroid') && !w.includes('resham')) return false;
+          if (selectedCraft === 'zari' && !w.includes('zari') && !w.includes('gold')) return false;
+          if (selectedCraft === 'handloom' && !w.includes('handloom') && !w.includes('hand-spun') && !w.includes('loom')) return false;
+          if (selectedCraft === 'brocade' && !w.includes('brocade') && !w.includes('jaal') && !w.includes('jacquard')) return false;
+          if (selectedCraft === 'pit-loom' && !w.includes('pit') && !w.includes('booti') && !w.includes('jamdani')) return false;
+          if (selectedCraft === 'zardozi' && !w.includes('zardozi') && !w.includes('zari')) return false;
+          if (selectedCraft === 'nakshi' && !w.includes('nakshi') && !w.includes('kantha')) return false;
+          if (selectedCraft === 'block' && !w.includes('block') && !w.includes('dabu')) return false;
         }
 
         return true;
@@ -183,9 +273,12 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
     searchQuery,
     selectedCategory,
     selectedCollection,
+    priceBracket,
     priceMax,
     selectedSize,
     selectedColor,
+    selectedFabric,
+    selectedCraft,
     sortBy,
   ]);
 
@@ -194,6 +287,9 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
     setSelectedCollection('all');
     setSelectedSize('all');
     setSelectedColor('all');
+    setSelectedFabric('all');
+    setSelectedCraft('all');
+    setPriceBracket('all');
     setPriceMax(35000);
     setSearchQuery('');
     setSortBy('featured');
@@ -204,6 +300,9 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
     selectedCollection !== 'all' ||
     selectedSize !== 'all' ||
     selectedColor !== 'all' ||
+    selectedFabric !== 'all' ||
+    selectedCraft !== 'all' ||
+    priceBracket !== 'all' ||
     priceMax < 35000 ||
     searchQuery.trim().length > 0;
 
@@ -224,44 +323,46 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
   };
 
   return (
-    <section id="catalog" className="py-12 bg-stone-50/50 min-h-[700px]">
+    <section id="catalog" className="py-12 bg-[#FAF8F5] min-h-[700px] border-t border-stone-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Strip with Title, Collection tabs, and Sort */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-stone-200/80 gap-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-stone-200 gap-4">
           <div>
             <div className="flex items-center gap-2">
               <span
                 className="text-xs uppercase tracking-[0.2em] font-semibold"
                 style={{ color: theme.primary }}
               >
-                {gender === 'men' ? 'ইসমাইল ফ্যাশন · পাঞ্জাবি ও পায়জামা' : 'ইসমাইল ফ্যাশন · শাড়ি ও থ্রি-পিস'}
+                {gender === 'men' ? 'ইসমাইল ফ্যাশন · প্রিমিয়াম পাঞ্জাবি ও পায়জামা' : 'ইসমাইল ফ্যাশন · ঐতিহ্যবাহী শাড়ি ও থ্রি-পিস'}
               </span>
               <span className="text-stone-300">·</span>
               <span className="text-xs text-stone-500 tabular-nums font-bangla">
-                {filteredProducts.length} টি এক্সক্লুসিভ কালেকশন
+                {filteredProducts.length} টি অনন্য পোশাক
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-serif text-stone-900 font-normal">
-              {gender === 'men' ? 'প্রিমিয়াম পাঞ্জাবি ও পায়জামা সম্ভার' : 'ঐতিহ্যবাহী ঢাকাই জামদানি, শাড়ি ও থ্রি-পিস'}
+            <h2 className="text-2xl sm:text-3xl font-serif text-stone-900 font-normal mt-1">
+              {gender === 'men'
+                ? 'আভিজাত্য পাঞ্জাবি, পায়জামা, কাবলি ও কোটি কালেকশন'
+                : 'খাঁটি ঢাকাই জামদানি, সিল্ক শাড়ি ও এক্সক্লুসিভ থ্রি-পিস'}
             </h2>
           </div>
 
-          {/* Quick Collection Segmented Tabs (All, New Arrivals, Best Sellers, Eid, Wedding) */}
-          <div className="flex flex-wrap items-center gap-1.5 p-1 bg-stone-200/60 rounded-lg text-xs">
+          {/* Quick Collection Segmented Tabs (Aza Fashions style) */}
+          <div className="flex flex-wrap items-center gap-1.5 p-1 bg-stone-200/70 rounded-xl text-xs">
             {[
               { id: 'all', label: 'All Catalog' },
-              { id: 'new-arrivals', label: 'New Arrivals' },
+              { id: 'eid', label: 'Eid Edit 2026' },
+              { id: 'wedding', label: 'Wedding Atelier' },
+              { id: 'new-arrivals', label: 'New Releases' },
               { id: 'best-sellers', label: 'Best Sellers' },
-              { id: 'eid', label: 'Eid Collection' },
-              { id: 'wedding', label: 'Wedding' },
             ].map((tab) => (
               <button
                 key={tab.id}
                 type="button"
                 onClick={() => setSelectedCollection(tab.id)}
-                className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
                   selectedCollection === tab.id
-                    ? 'bg-white text-stone-900 shadow-2xs font-semibold'
+                    ? 'bg-white text-stone-900 shadow-xs font-semibold'
                     : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
@@ -271,42 +372,52 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
           </div>
         </div>
 
-        {/* Toolbar: Category Quick Pills, Active Filters & Sort */}
+        {/* Toolbar: Category Quick Pills (Fabindia Style) */}
         <div className="py-4 flex flex-wrap items-center justify-between gap-4">
-          {/* Category Quick Pills (Scrollable for complete categories) */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 max-w-full scrollbar-thin">
-            {currentCategories.map((c) => (
-              <button
-                key={c.key}
-                type="button"
-                onClick={() => setSelectedCategory(c.key)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all whitespace-nowrap cursor-pointer shrink-0 ${
-                  selectedCategory === c.key
-                    ? 'text-white shadow-2xs font-semibold'
-                    : 'bg-white border border-stone-200 text-stone-700 hover:border-stone-300 hover:bg-stone-50'
-                }`}
-                style={{
-                  backgroundColor: selectedCategory === c.key ? theme.primary : undefined,
-                }}
-              >
-                {c.label} ({getCategoryCount(c.key)})
-              </button>
-            ))}
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 max-w-full scrollbar-none">
+            {currentCategories.map((c) => {
+              const count = getCategoryCount(c.key);
+              const isActive = selectedCategory === c.key;
+              return (
+                <button
+                  key={c.key}
+                  type="button"
+                  onClick={() => setSelectedCategory(c.key)}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all whitespace-nowrap cursor-pointer shrink-0 flex items-center gap-1.5 ${
+                    isActive
+                      ? 'text-white shadow-2xs font-semibold'
+                      : 'bg-white border border-stone-200 text-stone-700 hover:border-stone-300 hover:bg-stone-50'
+                  }`}
+                  style={{
+                    backgroundColor: isActive ? theme.primary : undefined,
+                  }}
+                >
+                  <span>{c.label}</span>
+                  <span
+                    className={`text-[10px] px-1.5 py-0.2 rounded-full tabular-nums ${
+                      isActive ? 'bg-white/20 text-white' : 'bg-stone-100 text-stone-500'
+                    }`}
+                  >
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
-          {/* Sort & Filter drawer toggle */}
-          <div className="flex items-center gap-3 ml-auto">
+          {/* Sort & Filter Drawer Button */}
+          <div className="flex items-center gap-3 ml-auto shrink-0">
             <button
               type="button"
               onClick={() => setShowMobileFilters(!showMobileFilters)}
-              className="lg:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-stone-200 bg-white text-xs font-medium text-stone-700"
+              className="lg:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-stone-300 bg-white text-xs font-medium text-stone-700 shadow-2xs"
             >
               <SlidersHorizontal className="w-3.5 h-3.5" />
               <span>Filters {isFilterActive && '•'}</span>
             </button>
 
             <div className="flex items-center gap-2 text-xs">
-              <span className="text-stone-600 hidden sm:inline">Sort by:</span>
+              <span className="text-stone-500 hidden sm:inline">Sort:</span>
               <select
                 value={sortBy}
                 onChange={(e) =>
@@ -314,9 +425,9 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
                     e.target.value as 'featured' | 'price-asc' | 'price-desc' | 'newest' | 'rating' | 'popularity'
                   )
                 }
-                className="bg-white border border-stone-200 rounded-md py-1.5 pl-2.5 pr-8 text-xs font-medium text-stone-800 focus:outline-none focus:ring-1 cursor-pointer"
+                className="bg-white border border-stone-200 rounded-lg py-1.5 pl-2.5 pr-8 text-xs font-medium text-stone-800 focus:outline-none focus:ring-1 cursor-pointer"
               >
-                <option value="featured">Featured First</option>
+                <option value="featured">Featured Atelier</option>
                 <option value="popularity">Most Popular</option>
                 <option value="price-asc">Price: Low to High</option>
                 <option value="price-desc">Price: High to Low</option>
@@ -329,10 +440,12 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
 
         {/* Active Filters Clear Bar */}
         {isFilterActive && (
-          <div className="py-2 flex items-center gap-2 text-xs text-stone-600 flex-wrap">
-            <span className="font-medium text-stone-700">Active Filters:</span>
+          <div className="py-2.5 px-3 bg-white rounded-xl border border-stone-200/80 mb-4 flex items-center gap-2 text-xs text-stone-600 flex-wrap">
+            <span className="font-semibold text-stone-800 flex items-center gap-1">
+              <Filter className="w-3.5 h-3.5 text-[#D4B779]" /> Active Filters:
+            </span>
             {selectedCategory !== 'all' && (
-              <span className="px-2 py-0.5 rounded bg-white border border-stone-200 flex items-center gap-1">
+              <span className="px-2 py-0.5 rounded-full bg-stone-100 border border-stone-200 flex items-center gap-1 text-[11px]">
                 Category: {currentCategories.find((c) => c.key === selectedCategory)?.label || selectedCategory}
                 <X
                   className="w-3 h-3 cursor-pointer hover:text-stone-900"
@@ -341,7 +454,7 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
               </span>
             )}
             {selectedCollection !== 'all' && (
-              <span className="px-2 py-0.5 rounded bg-white border border-stone-200 flex items-center gap-1">
+              <span className="px-2 py-0.5 rounded-full bg-stone-100 border border-stone-200 flex items-center gap-1 text-[11px]">
                 Collection: {selectedCollection}
                 <X
                   className="w-3 h-3 cursor-pointer hover:text-stone-900"
@@ -349,8 +462,17 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
                 />
               </span>
             )}
+            {priceBracket !== 'all' && (
+              <span className="px-2 py-0.5 rounded-full bg-stone-100 border border-stone-200 flex items-center gap-1 text-[11px]">
+                Price: {priceBrackets.find((p) => p.key === priceBracket)?.label}
+                <X
+                  className="w-3 h-3 cursor-pointer hover:text-stone-900"
+                  onClick={() => setPriceBracket('all')}
+                />
+              </span>
+            )}
             {selectedSize !== 'all' && (
-              <span className="px-2 py-0.5 rounded bg-white border border-stone-200 flex items-center gap-1">
+              <span className="px-2 py-0.5 rounded-full bg-stone-100 border border-stone-200 flex items-center gap-1 text-[11px]">
                 Size: {selectedSize}
                 <X
                   className="w-3 h-3 cursor-pointer hover:text-stone-900"
@@ -358,8 +480,26 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
                 />
               </span>
             )}
+            {selectedFabric !== 'all' && (
+              <span className="px-2 py-0.5 rounded-full bg-stone-100 border border-stone-200 flex items-center gap-1 text-[11px]">
+                Fabric: {selectedFabric}
+                <X
+                  className="w-3 h-3 cursor-pointer hover:text-stone-900"
+                  onClick={() => setSelectedFabric('all')}
+                />
+              </span>
+            )}
+            {selectedCraft !== 'all' && (
+              <span className="px-2 py-0.5 rounded-full bg-stone-100 border border-stone-200 flex items-center gap-1 text-[11px]">
+                Craft: {selectedCraft}
+                <X
+                  className="w-3 h-3 cursor-pointer hover:text-stone-900"
+                  onClick={() => setSelectedCraft('all')}
+                />
+              </span>
+            )}
             {selectedColor !== 'all' && (
-              <span className="px-2 py-0.5 rounded bg-white border border-stone-200 flex items-center gap-1">
+              <span className="px-2 py-0.5 rounded-full bg-stone-100 border border-stone-200 flex items-center gap-1 text-[11px]">
                 Color: {selectedColor}
                 <X
                   className="w-3 h-3 cursor-pointer hover:text-stone-900"
@@ -368,7 +508,7 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
               </span>
             )}
             {priceMax < 35000 && (
-              <span className="px-2 py-0.5 rounded bg-white border border-stone-200 flex items-center gap-1">
+              <span className="px-2 py-0.5 rounded-full bg-stone-100 border border-stone-200 flex items-center gap-1 text-[11px]">
                 Max: ৳{priceMax.toLocaleString()}
                 <X
                   className="w-3 h-3 cursor-pointer hover:text-stone-900"
@@ -377,7 +517,7 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
               </span>
             )}
             {searchQuery && (
-              <span className="px-2 py-0.5 rounded bg-white border border-stone-200 flex items-center gap-1">
+              <span className="px-2 py-0.5 rounded-full bg-stone-100 border border-stone-200 flex items-center gap-1 text-[11px]">
                 &ldquo;{searchQuery}&rdquo;
                 <X
                   className="w-3 h-3 cursor-pointer hover:text-stone-900"
@@ -388,24 +528,24 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
             <button
               type="button"
               onClick={handleResetFilters}
-              className="text-xs font-medium text-stone-500 hover:text-stone-900 flex items-center gap-1 ml-2 underline cursor-pointer"
+              className="text-xs font-semibold text-rose-800 hover:text-rose-950 flex items-center gap-1 ml-auto cursor-pointer"
             >
-              <RotateCcw className="w-3 h-3" /> Clear All
+              <RotateCcw className="w-3 h-3" /> Clear All Filters
             </button>
           </div>
         )}
 
-        {/* Main Grid with Sidebar Filters */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 pt-4">
-          {/* Desktop & Mobile Filter Sidebar */}
+        {/* Main Grid: Comprehensive Multi-Attribute Sidebar + Product Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 pt-2">
+          {/* Multi-Attribute Filter Sidebar (Aza Fashions + Fabindia Style) */}
           <aside
             className={`lg:block ${
               showMobileFilters ? 'block' : 'hidden'
-            } col-span-1 space-y-6 bg-white p-5 rounded-xl border border-stone-200/80 shadow-2xs h-fit`}
+            } col-span-1 space-y-6 bg-white p-5 rounded-2xl border border-stone-200/90 shadow-xs h-fit`}
           >
             <div className="flex items-center justify-between pb-3 border-b border-stone-100">
-              <h3 className="text-sm font-semibold text-stone-900 flex items-center gap-1.5">
-                <SlidersHorizontal className="w-4 h-4" /> Filter Options
+              <h3 className="text-sm font-semibold text-stone-900 flex items-center gap-1.5 font-serif">
+                <SlidersHorizontal className="w-4 h-4 text-[#D4B779]" /> Filter Atelier
               </h3>
               {isFilterActive && (
                 <button
@@ -418,31 +558,30 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
               )}
             </div>
 
-            {/* Categories List in Sidebar */}
+            {/* 1. Category Tree Filter */}
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-stone-800 block">
-                {gender === 'men' ? 'Traditional Categories' : "Women's Wardrobe Categories"}
+              <label className="text-xs font-semibold uppercase tracking-wider text-stone-800 block">
+                {gender === 'men' ? "Men's Garment Types" : "Women's Categories"}
               </label>
-              <div className="space-y-1 max-h-56 overflow-y-auto pr-1">
+              <div className="space-y-1 max-h-52 overflow-y-auto pr-1">
                 {currentCategories.map((c) => {
                   const count = getCategoryCount(c.key);
+                  const isSel = selectedCategory === c.key;
                   return (
                     <button
                       key={c.key}
                       type="button"
                       onClick={() => setSelectedCategory(c.key)}
-                      className={`w-full text-left px-2.5 py-1.5 rounded-md text-xs flex items-center justify-between transition-colors ${
-                        selectedCategory === c.key
+                      className={`w-full text-left px-2.5 py-1.5 rounded-lg text-xs flex items-center justify-between transition-colors ${
+                        isSel
                           ? 'bg-stone-900 text-white font-semibold'
                           : 'text-stone-700 hover:bg-stone-100'
                       }`}
                     >
                       <span className="truncate">{c.label}</span>
                       <span
-                        className={`text-[10px] tabular-nums px-1.5 py-0.2 rounded ${
-                          selectedCategory === c.key
-                            ? 'bg-stone-800 text-white'
-                            : 'bg-stone-100 text-stone-500'
+                        className={`text-[10px] tabular-nums px-1.5 py-0.2 rounded-full ${
+                          isSel ? 'bg-stone-800 text-white' : 'bg-stone-100 text-stone-500'
                         }`}
                       >
                         {count}
@@ -453,79 +592,111 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
               </div>
             </div>
 
-            {/* Price Range Filter */}
+            {/* 2. Fabric Multi-Attribute Filter (Aza & Fabindia) */}
             <div className="space-y-2 pt-3 border-t border-stone-100">
-              <label className="text-xs font-medium text-stone-800 flex items-center justify-between">
-                <span>Maximum Price</span>
-                <span className="tabular-nums font-serif font-bold text-stone-900">
-                  ৳{priceMax.toLocaleString()}
-                </span>
+              <label className="text-xs font-semibold uppercase tracking-wider text-stone-800 block">
+                Fabric &amp; Weave
               </label>
-              <input
-                type="range"
-                min="1000"
-                max="35000"
-                step="500"
-                value={priceMax}
-                onChange={(e) => setPriceMax(Number(e.target.value))}
-                className="w-full accent-stone-800 cursor-pointer"
-              />
-              <div className="flex justify-between text-[10px] text-stone-600">
-                <span>৳1,000</span>
-                <span>৳35,000+</span>
-              </div>
-            </div>
-
-            {/* Color Swatch Filter */}
-            <div className="space-y-2 pt-3 border-t border-stone-100">
-              <label className="text-xs font-medium text-stone-800 block">Color Palette</label>
-              <div className="flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  onClick={() => setSelectedColor('all')}
-                  className={`text-[11px] px-2 py-1 rounded border transition-all ${
-                    selectedColor === 'all'
-                      ? 'bg-stone-900 text-white border-stone-900'
-                      : 'border-stone-200 hover:border-stone-400 text-stone-600'
-                  }`}
-                >
-                  All Colors
-                </button>
-                {availableColors.map((col) => (
+              <div className="flex flex-wrap gap-1.5">
+                {fabricOptions.map((f) => (
                   <button
-                    key={col.name}
+                    key={f.key}
                     type="button"
-                    title={col.name}
-                    onClick={() => setSelectedColor(col.name)}
-                    className={`w-6 h-6 rounded-full border transition-transform relative ${
-                      selectedColor === col.name
-                        ? 'scale-115 border-stone-900 ring-2 ring-stone-400'
-                        : 'border-stone-300 hover:scale-105'
+                    onClick={() => setSelectedFabric(f.key)}
+                    className={`px-2.5 py-1 text-[11px] rounded-lg border transition-all ${
+                      selectedFabric === f.key
+                        ? 'bg-stone-900 text-white border-stone-900 font-semibold'
+                        : 'border-stone-200 text-stone-700 hover:border-stone-300 bg-stone-50/70'
                     }`}
-                    style={{ backgroundColor: col.hex }}
-                  />
+                  >
+                    {f.label}
+                  </button>
                 ))}
               </div>
             </div>
 
-            {/* Size Filter */}
+            {/* 3. Craft & Work Multi-Attribute Filter (Aza & Fabindia) */}
+            <div className="space-y-2 pt-3 border-t border-stone-100">
+              <label className="text-xs font-semibold uppercase tracking-wider text-stone-800 block">
+                Work &amp; Craftsmanship
+              </label>
+              <div className="flex flex-wrap gap-1.5">
+                {craftOptions.map((c) => (
+                  <button
+                    key={c.key}
+                    type="button"
+                    onClick={() => setSelectedCraft(c.key)}
+                    className={`px-2.5 py-1 text-[11px] rounded-lg border transition-all ${
+                      selectedCraft === c.key
+                        ? 'bg-stone-900 text-white border-stone-900 font-semibold'
+                        : 'border-stone-200 text-stone-700 hover:border-stone-300 bg-stone-50/70'
+                    }`}
+                  >
+                    {c.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 4. Price Bracket & Slider (Aza Fashions style) */}
+            <div className="space-y-2 pt-3 border-t border-stone-100">
+              <label className="text-xs font-semibold uppercase tracking-wider text-stone-800 block">
+                Price Range (BDT ৳)
+              </label>
+              <div className="grid grid-cols-2 gap-1.5 mb-2">
+                {priceBrackets.map((pb) => (
+                  <button
+                    key={pb.key}
+                    type="button"
+                    onClick={() => setPriceBracket(pb.key)}
+                    className={`px-2 py-1 text-[10px] rounded-lg border text-center transition-all ${
+                      priceBracket === pb.key
+                        ? 'bg-stone-900 text-white border-stone-900 font-semibold'
+                        : 'border-stone-200 text-stone-700 hover:border-stone-300 bg-stone-50'
+                    }`}
+                  >
+                    {pb.label}
+                  </button>
+                ))}
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center justify-between text-xs text-stone-600">
+                  <span>Up to:</span>
+                  <span className="font-bold text-stone-900 tabular-nums">৳{priceMax.toLocaleString()}</span>
+                </div>
+                <input
+                  type="range"
+                  min="1000"
+                  max="35000"
+                  step="500"
+                  value={priceMax}
+                  onChange={(e) => {
+                    setPriceMax(Number(e.target.value));
+                    setPriceBracket('all');
+                  }}
+                  className="w-full accent-stone-800 cursor-pointer"
+                />
+              </div>
+            </div>
+
+            {/* 5. Quick Size Selector (Aza Fashions style) */}
             <div className="space-y-2 pt-3 border-t border-stone-100">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-medium text-stone-800">
-                  {gender === 'men' ? 'Tailored Size (Chest)' : 'Garment Size'}
+                <label className="text-xs font-semibold uppercase tracking-wider text-stone-800">
+                  {gender === 'men' ? 'Chest Size (Inches)' : 'Garment Size'}
                 </label>
-                <span className="text-[10px] text-stone-600">
-                  {gender === 'women' ? 'Sarees unstitched' : 'Inches'}
+                <span className="text-[10px] text-stone-400">
+                  {gender === 'women' ? 'Sarees unstitched' : '38-46'}
                 </span>
               </div>
               <div className="flex flex-wrap gap-1.5">
                 <button
                   type="button"
                   onClick={() => setSelectedSize('all')}
-                  className={`px-2.5 py-1 rounded text-xs border ${
+                  className={`px-2.5 py-1 rounded-lg text-xs border ${
                     selectedSize === 'all'
-                      ? 'bg-stone-900 text-white border-stone-900'
-                      : 'border-stone-200 text-stone-700 hover:border-stone-400'
+                      ? 'bg-stone-900 text-white border-stone-900 font-semibold'
+                      : 'border-stone-200 text-stone-700 hover:border-stone-300'
                   }`}
                 >
                   All
@@ -535,10 +706,10 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
                     key={sz}
                     type="button"
                     onClick={() => setSelectedSize(sz)}
-                    className={`px-2.5 py-1 rounded text-xs border font-medium ${
+                    className={`px-2.5 py-1 rounded-lg text-xs border font-medium ${
                       selectedSize === sz
-                        ? 'bg-stone-900 text-white border-stone-900'
-                        : 'border-stone-200 text-stone-700 hover:border-stone-400'
+                        ? 'bg-stone-900 text-white border-stone-900 font-semibold'
+                        : 'border-stone-200 text-stone-700 hover:border-stone-300'
                     }`}
                   >
                     {sz}
@@ -547,24 +718,56 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
               </div>
             </div>
 
-            {/* Cultural Assurance Note */}
+            {/* 6. Color Swatches */}
+            <div className="space-y-2 pt-3 border-t border-stone-100">
+              <label className="text-xs font-semibold uppercase tracking-wider text-stone-800 block">Color Palette</label>
+              <div className="flex flex-wrap gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => setSelectedColor('all')}
+                  className={`text-[10px] px-2 py-0.5 rounded-lg border transition-all ${
+                    selectedColor === 'all'
+                      ? 'bg-stone-900 text-white border-stone-900 font-semibold'
+                      : 'border-stone-200 hover:border-stone-400 text-stone-600'
+                  }`}
+                >
+                  All
+                </button>
+                {availableColors.map((col) => (
+                  <button
+                    key={col.name}
+                    type="button"
+                    title={col.name}
+                    onClick={() => setSelectedColor(col.name)}
+                    className={`w-5 h-5 rounded-full border transition-transform relative ${
+                      selectedColor === col.name
+                        ? 'scale-125 border-stone-900 ring-2 ring-stone-400 shadow-xs'
+                        : 'border-stone-300 hover:scale-110'
+                    }`}
+                    style={{ backgroundColor: col.hex }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Brand Heritage Assurance */}
             <div
-              className="p-3.5 rounded-lg text-xs leading-relaxed border space-y-1"
+              className="p-4 rounded-xl text-xs leading-relaxed border space-y-1.5"
               style={{
                 backgroundColor: gender === 'men' ? '#FAF8F3' : '#FAF5EF',
                 borderColor: theme.borderTone,
               }}
             >
-              <div className="flex items-center gap-1 font-semibold text-stone-900">
-                <Sparkles className="w-3.5 h-3.5 text-[#D4B779]" /> Genuine Handloom Guarantee
+              <div className="flex items-center gap-1 font-serif font-bold text-stone-900">
+                <Sparkles className="w-3.5 h-3.5 text-[#D4B779]" /> ইসমাইল ফ্যাশন কোয়ালিটি নিশ্চয়তা
               </div>
-              <p className="text-[11px] text-stone-600">
-                Crafted in Sonargaon, Tangail, Comilla, and Rajshahi artisan centers with pure natural fibers.
+              <p className="text-[11px] text-stone-600 font-bangla">
+                ১০০% খাঁটি নিজস্ব তাঁতের জামদানি, পিওর রাজশাহী তুত সিল্ক এবং সেরা মানের খাদি সুতি দিয়ে তৈরি।
               </p>
             </div>
           </aside>
 
-          {/* Product Listing Grid (3 Columns on desktop) */}
+          {/* Product Listing Grid (3 Columns on Desktop) */}
           <div className="col-span-1 lg:col-span-3">
             {filteredProducts.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -577,26 +780,26 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
                 ))}
               </div>
             ) : (
-              /* Empty Search / Filter State */
-              <div className="bg-white rounded-xl border border-stone-200/80 p-12 text-center space-y-4 max-w-lg mx-auto my-8">
-                <div className="w-12 h-12 rounded-full bg-stone-100 flex items-center justify-center mx-auto text-stone-400">
+              /* Refined Empty Search / Filter State */
+              <div className="bg-white rounded-2xl border border-stone-200/90 p-12 text-center space-y-4 max-w-lg mx-auto my-8 shadow-xs">
+                <div className="w-14 h-14 rounded-full bg-stone-100 flex items-center justify-center mx-auto text-stone-400">
                   <Search className="w-6 h-6" />
                 </div>
                 <div className="space-y-1">
-                  <h4 className="text-base font-semibold text-stone-900 font-serif">
-                    No matching garments found
+                  <h4 className="text-lg font-semibold text-stone-900 font-serif">
+                    কোনো পোশাক পাওয়া যায়নি
                   </h4>
                   <p className="text-xs text-stone-500 font-sans">
-                    We couldn&apos;t find any garments matching your current filter criteria.
+                    আপনার নির্বাচিত ফিল্টারের সাথে মিলে এমন কোনো পোশাক পাওয়া যায়নি। অনুগ্রহ করে ফিল্টার পরিবর্তন করুন।
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={handleResetFilters}
-                  className="px-4 py-2 rounded-md text-xs font-medium text-white transition-all cursor-pointer shadow-xs"
+                  className="px-5 py-2.5 rounded-full text-xs font-semibold text-white transition-all cursor-pointer shadow-xs hover:shadow-md"
                   style={{ backgroundColor: theme.primary }}
                 >
-                  Reset All Filters
+                  সব ফিল্টার রিসেট করুন
                 </button>
               </div>
             )}
