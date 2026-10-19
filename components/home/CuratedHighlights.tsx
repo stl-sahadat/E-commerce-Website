@@ -63,7 +63,7 @@ export const CuratedHighlights: React.FC<CuratedHighlightsProps> = ({
               <Sparkles className="w-3.5 h-3.5 text-[#D4B779]" />
               <span className="font-bangla">ইসমাইল ফ্যাশন কিউরেটেড কালেকশন</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-stone-900 font-normal">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-stone-900 font-bold not-italic">
               {getTabTitle()}
             </h2>
           </div>

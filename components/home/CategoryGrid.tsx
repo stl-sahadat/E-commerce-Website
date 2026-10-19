@@ -185,7 +185,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
             >
               Curated Craftsmanship
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-stone-900 tracking-tight">
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold not-italic text-stone-900 tracking-tight">
               {gender === 'men' ? 'পাঞ্জাবি, পায়জামা ও কোটি কালেকশন' : 'ঢাকাই জামদানি, থ্রি-পিস ও সিল্ক শাড়ি'}
             </h2>
           </div>
@@ -221,9 +221,6 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
                     className="w-full h-full"
                   />
                 )}
-                <span className="absolute top-3 right-3 text-[10px] font-sans font-medium px-2 py-0.5 rounded-full bg-white/90 text-stone-700 shadow-2xs border border-stone-200/60">
-                  {cat.count}
-                </span>
               </div>
 
               {/* Text Info */}

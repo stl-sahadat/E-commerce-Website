@@ -219,12 +219,12 @@ const ProductDetailsModalInner: React.FC<{
                   </span>
                 </div>
 
-                <h2 className="text-2xl font-serif font-normal text-stone-900 leading-tight">
+                <h2 className="text-2xl font-serif font-bold not-italic text-stone-900 leading-tight">
                   {product.name}
                 </h2>
 
                 {product.banglaName && (
-                  <p className="text-sm font-serif text-stone-600 italic mt-0.5">
+                  <p className="text-sm font-bangla text-stone-700 not-italic font-medium mt-0.5">
                     {product.banglaName}
                   </p>
                 )}

@@ -61,7 +61,7 @@ export const FeaturedOccasions: React.FC<FeaturedOccasionsProps> = ({ onSelectCo
           >
             Curated Occasions · উৎসব ও বিশেষ আয়োজন
           </span>
-          <h2 className="text-2xl sm:text-4xl font-serif text-stone-900 font-normal">
+          <h2 className="text-2xl sm:text-4xl font-serif text-stone-900 font-bold not-italic">
             বিশেষ উৎসব ও উদযাপনে ইসমাইল ফ্যাশনের পোশাক
           </h2>
           <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
@@ -93,7 +93,7 @@ export const FeaturedOccasions: React.FC<FeaturedOccasionsProps> = ({ onSelectCo
                   </div>
 
                   <div>
-                    <span className="text-[11px] font-serif text-stone-600 block italic">
+                    <span className="text-[11px] font-bangla text-stone-700 block not-italic font-medium">
                       {occ.banglaTitle}
                     </span>
                     <h3 className="font-serif text-xl font-semibold text-stone-900 group-hover:text-stone-700 transition-colors">

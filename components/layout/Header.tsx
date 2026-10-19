@@ -435,22 +435,13 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog
                   key={link.label}
                   type="button"
                   onClick={() => handleLinkClick(link)}
-                  className={`py-1 px-2.5 rounded-full transition-all relative whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
+                  className={`py-1.5 px-3.5 rounded-full transition-all relative whitespace-nowrap cursor-pointer text-xs ${
                     isActive
                       ? 'bg-stone-900 text-white font-semibold shadow-2xs'
                       : 'text-stone-700 hover:text-stone-950 hover:bg-black/5'
                   }`}
                 >
                   <span>{link.label}</span>
-                  {count !== null && count > 0 && (
-                    <span
-                      className={`text-[10px] px-1.5 py-0.2 rounded-full tabular-nums ${
-                        isActive ? 'bg-white/20 text-white' : 'bg-stone-200/80 text-stone-600'
-                      }`}
-                    >
-                      {count}
-                    </span>
-                  )}
                 </button>
               );
             })}
@@ -541,12 +532,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog
                         onClick={() => setMobileSareeOpen(!mobileSareeOpen)}
                         className="w-full text-left py-2.5 px-3 rounded-md text-sm font-semibold text-stone-900 flex items-center justify-between"
                       >
-                        <span className="flex items-center gap-1.5">
-                          {link.label}
-                          {count !== null && (
-                            <span className="text-[10px] text-stone-500 font-normal">({count})</span>
-                          )}
-                        </span>
+                        <span>{link.label}</span>
                         <ChevronDown
                           className={`w-4 h-4 text-stone-400 transition-transform ${
                             mobileSareeOpen ? 'rotate-180' : ''
@@ -556,22 +542,17 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog
 
                       {mobileSareeOpen && (
                         <div className="pl-4 space-y-1 pt-1 pb-2 bg-stone-50/50 rounded-lg">
-                          {link.subItems.map((sub) => {
-                            const subCount = sub.countKey ? getNavCount(sub.countKey, true) : null;
-                            return (
-                              <button
-                                key={sub.label}
-                                type="button"
-                                onClick={() => handleLinkClick(sub)}
-                                className="w-full text-left py-2 px-3 text-xs text-stone-700 hover:text-stone-950 flex items-center justify-between"
-                              >
-                                <span>{sub.label}</span>
-                                <span className="text-stone-400 text-[10px]">
-                                  {subCount !== null ? `(${subCount})` : '→'}
-                                </span>
-                              </button>
-                            );
-                          })}
+                          {link.subItems.map((sub) => (
+                            <button
+                              key={sub.label}
+                              type="button"
+                              onClick={() => handleLinkClick(sub)}
+                              className="w-full text-left py-2 px-3 text-xs text-stone-700 hover:text-stone-950 flex items-center justify-between"
+                            >
+                              <span>{sub.label}</span>
+                              <span className="text-stone-400 text-xs">→</span>
+                            </button>
+                          ))}
                         </div>
                       )}
                     </div>
@@ -585,12 +566,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog
                     onClick={() => handleLinkClick(link)}
                     className="w-full text-left py-2.5 px-3 rounded-md text-sm font-medium text-stone-800 hover:bg-stone-50 transition-colors flex items-center justify-between"
                   >
-                    <span className="flex items-center gap-1.5">
-                      {link.label}
-                      {count !== null && count > 0 && (
-                        <span className="text-[10px] text-stone-500 font-normal">({count})</span>
-                      )}
-                    </span>
+                    <span>{link.label}</span>
                     <span className="text-stone-300 text-xs">→</span>
                   </button>
                 );

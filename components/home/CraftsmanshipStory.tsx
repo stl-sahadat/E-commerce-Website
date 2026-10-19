@@ -57,7 +57,7 @@ export const CraftsmanshipStory: React.FC = () => {
               আজ ইসমাইল ফ্যাশন নিয়ে এসেছে প্রিমিয়াম সিল্ক ও খাদি পাঞ্জাবি, সুতি আলিগড়ি ও চুড়িদার পায়জামা, ঐতিহ্যবাহী ঢাকাই জামদানি ও রাজশাহী সিল্ক শাড়ি এবং সুনিপুণ কারুকাজের এক্সক্লুসিভ থ্রি-পিস কালেকশন। প্রতিটি পোশাকে শতভাগ আভিজাত্য ও কোয়ালিটির নিশ্চয়তা।
             </p>
 
-            <div className="pt-4 flex items-center gap-4 text-xs font-serif italic text-stone-700">
+            <div className="pt-4 flex items-center gap-4 text-xs font-serif not-italic font-medium text-stone-700">
               <div className="w-12 h-0.5 bg-[#D4B779]" />
               <span>&ldquo;A garment is not merely cloth; it is the living tapestry of an ancient people.&rdquo;</span>
             </div>

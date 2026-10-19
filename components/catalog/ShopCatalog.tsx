@@ -340,7 +340,7 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
                 {filteredProducts.length} টি অনন্য পোশাক
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-serif text-stone-900 font-normal mt-1">
+            <h2 className="text-2xl sm:text-3xl font-serif text-stone-900 font-bold not-italic mt-1">
               {gender === 'men'
                 ? 'আভিজাত্য পাঞ্জাবি, পায়জামা, কাবলি ও কোটি কালেকশন'
                 : 'খাঁটি ঢাকাই জামদানি, সিল্ক শাড়ি ও এক্সক্লুসিভ থ্রি-পিস'}
@@ -372,18 +372,17 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
           </div>
         </div>
 
-        {/* Toolbar: Category Quick Pills (Fabindia Style) */}
+        {/* Toolbar: Category Quick Pills (Clean Minimalist Retail) */}
         <div className="py-4 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-2 overflow-x-auto pb-2 max-w-full scrollbar-none">
             {currentCategories.map((c) => {
-              const count = getCategoryCount(c.key);
               const isActive = selectedCategory === c.key;
               return (
                 <button
                   key={c.key}
                   type="button"
                   onClick={() => setSelectedCategory(c.key)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all whitespace-nowrap cursor-pointer shrink-0 flex items-center gap-1.5 ${
+                  className={`px-4 py-2 rounded-full text-xs font-medium transition-all whitespace-nowrap cursor-pointer shrink-0 ${
                     isActive
                       ? 'text-white shadow-2xs font-semibold'
                       : 'bg-white border border-stone-200 text-stone-700 hover:border-stone-300 hover:bg-stone-50'
@@ -393,13 +392,6 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
                   }}
                 >
                   <span>{c.label}</span>
-                  <span
-                    className={`text-[10px] px-1.5 py-0.2 rounded-full tabular-nums ${
-                      isActive ? 'bg-white/20 text-white' : 'bg-stone-100 text-stone-500'
-                    }`}
-                  >
-                    {count}
-                  </span>
                 </button>
               );
             })}

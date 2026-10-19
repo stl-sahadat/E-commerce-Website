@@ -133,9 +133,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOc
               </span>
             </div>
 
-            {/* Main Headline (Playfair Editorial Serif) */}
+            {/* Main Headline (Playfair Editorial Serif - Upright & Bold) */}
             <h1
-              className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.14] text-stone-900"
+              className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.15] text-stone-900 font-bold not-italic"
               style={{
                 textWrap: 'balance',
               }}
@@ -144,7 +144,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOc
                 <>
                   The Nobility of <br className="hidden sm:inline" />
                   <span
-                    className="italic font-normal"
+                    className="font-bold not-italic"
                     style={{ color: theme.primary }}
                   >
                     Royal Panjabis
@@ -155,7 +155,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOc
                 <>
                   The Grandeur of{' '}
                   <span
-                    className="italic font-normal"
+                    className="font-bold not-italic"
                     style={{ color: theme.primary }}
                   >
                     Dhakai Jamdani
@@ -277,22 +277,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOc
                 className="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105"
               />
 
-              {/* Floating Curated Badge / Callout */}
-              <div
-                className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-stone-200/80 shadow-xs flex items-center gap-1.5"
-              >
-                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: theme.primary }} />
-                <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-stone-900">
-                  {currentSlide.tag}
-                </span>
-              </div>
 
-              {/* Floating Weave Origin Tag (Fabindia style) */}
-              <div
-                className="absolute top-4 right-4 bg-stone-900/80 text-white backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-sans font-medium"
-              >
-                {currentSlide.origin.split(',')[0]}
-              </div>
 
               {/* Bottom Details Card Overlay */}
               <div
