@@ -91,15 +91,15 @@ const MEN_THEME: ThemeTokens = {
 
 const WOMEN_THEME: ThemeTokens = {
   name: 'women',
-  primary: '#6B2838', // Deep Burgundy
-  primaryHover: '#541f2c',
-  charcoalOrBurgundy: '#3F1620',
-  accentGold: '#C6A16B', // Muted Gold
-  canvasBg: '#F7EFE6', // Warm Ivory
+  primary: '#B03E5C', // Luxury Rose / Royal Pink
+  primaryHover: '#962F4A',
+  charcoalOrBurgundy: '#42131F', // Deep Velvet Rose
+  accentGold: '#D49B85', // Rose Gold Accent
+  canvasBg: '#FAF1F2', // Soft Rose-Tinted Ivory Canvas
   surfaceBg: '#FFFFFF',
-  borderTone: 'rgba(107, 40, 56, 0.14)',
-  badgeBg: '#6B2838',
-  textMuted: '#6E5C58',
+  borderTone: 'rgba(176, 62, 92, 0.14)',
+  badgeBg: '#B03E5C',
+  textMuted: '#6E5259',
 };
 
 const StoreContext = createContext<StoreContextType | undefined>(undefined);
@@ -117,7 +117,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [products, setProducts] = useState<Product[]>(() => {
     if (typeof window !== 'undefined') {
       try {
-        const saved = localStorage.getItem('bunon_products_v3');
+        const saved = localStorage.getItem('bunon_products_v4');
         if (saved) return JSON.parse(saved);
       } catch {}
     }
@@ -197,7 +197,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   useEffect(() => {
     try {
-      localStorage.setItem('bunon_products_v3', JSON.stringify(products));
+      localStorage.setItem('bunon_products_v4', JSON.stringify(products));
     } catch {}
   }, [products]);
 

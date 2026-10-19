@@ -1,17 +1,24 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, DM_Sans } from 'next/font/google';
+import { Playfair_Display, Plus_Jakarta_Sans, Hind_Siliguri } from 'next/font/google';
 import './globals.css';
 
-const cormorant = Cormorant_Garamond({
+const playfair = Playfair_Display({
   subsets: ['latin'],
-  variable: '--font-cormorant',
-  weight: ['400', '500', '600', '700'],
+  variable: '--font-playfair',
+  weight: ['400', '500', '600', '700', '800'],
   display: 'swap',
 });
 
-const dmSans = DM_Sans({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  variable: '--font-dm-sans',
+  variable: '--font-jakarta',
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+});
+
+const hindSiliguri = Hind_Siliguri({
+  subsets: ['bengali', 'latin'],
+  variable: '--font-bangla',
   weight: ['400', '500', '600', '700'],
   display: 'swap',
 });
@@ -40,7 +47,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${dmSans.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${jakarta.variable} ${hindSiliguri.variable}`}>
       <body className="font-sans antialiased selection:bg-[#D4B779]/30 text-stone-900" suppressHydrationWarning>
         {children}
       </body>

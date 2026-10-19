@@ -22,6 +22,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
     colorHex: string;
     bgTone: string;
     count: string;
+    image: string;
   }[] = [
     {
       key: 'panjabi',
@@ -32,6 +33,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
       colorHex: '#17382F',
       bgTone: '#0e241e',
       count: '6 Styles',
+      image: '/images/products/m-panjabi-01.jpg',
     },
     {
       key: 'kabli-kurta',
@@ -42,6 +44,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
       colorHex: '#121214',
       bgTone: '#000000',
       count: '4 Styles',
+      image: '/images/products/m-kabli-01.jpg',
     },
     {
       key: 'waistcoats',
@@ -52,6 +55,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
       colorHex: '#63532C',
       bgTone: '#4a3d1e',
       count: '3 Styles',
+      image: '/images/products/m-waistcoat-01.jpg',
     },
     {
       key: 'pajama-sets',
@@ -62,6 +66,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
       colorHex: '#F7F4EC',
       bgTone: '#e4dece',
       count: '3 Styles',
+      image: '/images/products/m-pajama-01.jpg',
     },
   ];
 
@@ -74,6 +79,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
     colorHex: string;
     bgTone: string;
     count: string;
+    image: string;
   }[] = [
     {
       key: 'jamdani-saree',
@@ -84,6 +90,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
       colorHex: '#6B1D2F',
       bgTone: '#45111d',
       count: '4 Styles',
+      image: '/images/products/w-saree-01.jpg',
     },
     {
       key: 'silk-saree',
@@ -94,6 +101,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
       colorHex: '#581F2F',
       bgTone: '#3e1521',
       count: '4 Styles',
+      image: '/images/products/w-saree-03.jpg',
     },
     {
       key: 'three-piece',
@@ -104,6 +112,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
       colorHex: '#6B2838',
       bgTone: '#4a1924',
       count: '4 Styles',
+      image: '/images/products/w-three-piece-01.jpg',
     },
     {
       key: 'salwar-kameez',
@@ -114,6 +123,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
       colorHex: '#1B4738',
       bgTone: '#112f25',
       count: '3 Styles',
+      image: '/images/products/w-salwar-01.jpg',
     },
     {
       key: 'kurtis',
@@ -124,6 +134,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
       colorHex: '#631B2A',
       bgTone: '#48111c',
       count: '4 Styles',
+      image: '/images/products/w-kurti-01.jpg',
     },
     {
       key: 'lehenga',
@@ -134,6 +145,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
       colorHex: '#631B2B',
       bgTone: '#44111c',
       count: '3 Styles',
+      image: '/images/products/w-lehenga-01.jpg',
     },
     {
       key: 'hijab',
@@ -144,6 +156,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
       colorHex: '#BD8983',
       bgTone: '#a46f69',
       count: '3 Styles',
+      image: '/images/products/w-hijab-01.jpg',
     },
     {
       key: 'dupatta-orna',
@@ -154,6 +167,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
       colorHex: '#D7B6A5',
       bgTone: '#b89280',
       count: '3 Styles',
+      image: '/images/products/w-dupatta-01.jpg',
     },
   ];
 
@@ -192,12 +206,21 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
             >
               {/* Garment Image Showcase */}
               <div className="relative aspect-4/3 w-full bg-stone-100/60 overflow-hidden border-b border-stone-100">
-                <GarmentVisual
-                  silhouette={cat.silhouette}
-                  activeColor={{ name: cat.title, hex: cat.colorHex, bgTone: cat.bgTone }}
-                  gender={gender}
-                  className="w-full h-full"
-                />
+                {cat.image ? (
+                  <img
+                    src={cat.image}
+                    alt={cat.title}
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                ) : (
+                  <GarmentVisual
+                    silhouette={cat.silhouette}
+                    activeColor={{ name: cat.title, hex: cat.colorHex, bgTone: cat.bgTone }}
+                    gender={gender}
+                    className="w-full h-full"
+                  />
+                )}
                 <span className="absolute top-3 right-3 text-[10px] font-sans font-medium px-2 py-0.5 rounded-full bg-white/90 text-stone-700 shadow-2xs border border-stone-200/60">
                   {cat.count}
                 </span>

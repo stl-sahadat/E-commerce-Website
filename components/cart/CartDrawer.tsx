@@ -119,12 +119,20 @@ export const CartDrawer: React.FC = () => {
               >
                 {/* Visual Thumbnail */}
                 <div className="w-16 h-20 rounded-lg overflow-hidden bg-stone-100 shrink-0 border border-stone-200/60">
-                  <GarmentVisual
-                    silhouette={item.product.silhouetteType}
-                    activeColor={item.selectedColor}
-                    gender={item.product.gender}
-                    className="w-full h-full"
-                  />
+                  {item.product.image ? (
+                    <img
+                      src={item.product.image}
+                      alt={item.product.name}
+                      className="w-full h-full object-cover object-top"
+                    />
+                  ) : (
+                    <GarmentVisual
+                      silhouette={item.product.silhouetteType}
+                      activeColor={item.selectedColor}
+                      gender={item.product.gender}
+                      className="w-full h-full"
+                    />
+                  )}
                 </div>
 
                 {/* Info */}

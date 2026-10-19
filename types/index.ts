@@ -84,6 +84,8 @@ export interface Product {
     palluDetail?: string;
     includedPieces?: string;
   };
+  image?: string;
+  images?: string[];
 }
 
 export interface CartItem {

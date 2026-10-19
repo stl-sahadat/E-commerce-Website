@@ -85,6 +85,11 @@ const ProductDetailsModalInner: React.FC<{
     .filter((p) => p.id !== product.id && p.gender === product.gender)
     .slice(0, 3);
 
+  const galleryImages = product.images && product.images.length > 0
+    ? product.images
+    : (product.image ? [product.image] : []);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+
   const hasSizes = product.sizes && product.sizes.length > 0;
 
   return (
@@ -123,13 +128,21 @@ const ProductDetailsModalInner: React.FC<{
                 className="relative aspect-4/5 w-full rounded-xl overflow-hidden border border-stone-200 shadow-sm"
                 style={{ backgroundColor: theme.canvasBg }}
               >
-                <GarmentVisual
-                  silhouette={product.silhouetteType}
-                  activeColor={selectedColor}
-                  viewMode={viewMode}
-                  gender={product.gender}
-                  className="w-full h-full"
-                />
+                {galleryImages.length > 0 && viewMode === 'full' ? (
+                  <img
+                    src={galleryImages[activeImageIndex] || galleryImages[0]}
+                    alt={product.name}
+                    className="w-full h-full object-cover object-top transition-transform duration-500"
+                  />
+                ) : (
+                  <GarmentVisual
+                    silhouette={product.silhouetteType}
+                    activeColor={selectedColor}
+                    viewMode={viewMode}
+                    gender={product.gender}
+                    className="w-full h-full"
+                  />
+                )}
 
                 {/* Wishlist Button */}
                 <button
@@ -144,6 +157,30 @@ const ProductDetailsModalInner: React.FC<{
                 </button>
               </div>
 
+              {/* Gallery Thumbnails (if multiple images) */}
+              {galleryImages.length > 1 && viewMode === 'full' && (
+                <div className="flex items-center gap-2 overflow-x-auto pb-1">
+                  {galleryImages.map((img, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setActiveImageIndex(idx)}
+                      className={`relative w-14 h-16 rounded-lg overflow-hidden border-2 transition-all shrink-0 ${
+                        activeImageIndex === idx
+                          ? 'border-stone-900 shadow-sm'
+                          : 'border-stone-200 opacity-70 hover:opacity-100'
+                      }`}
+                    >
+                      <img
+                        src={img}
+                        alt={`${product.name} angle ${idx + 1}`}
+                        className="w-full h-full object-cover object-top"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
+
               {/* View Switcher: Full Garment vs Fabric Texture Weave */}
               <div className="flex items-center gap-2">
                 <button
@@ -155,7 +192,7 @@ const ProductDetailsModalInner: React.FC<{
                       : 'bg-white border-stone-200 text-stone-600 hover:bg-stone-50'
                   }`}
                 >
-                  Headless Studio Drape
+                  Authentic Studio View
                 </button>
                 <button
                   type="button"
@@ -603,12 +640,20 @@ const ProductDetailsModalInner: React.FC<{
                   className="group flex items-center gap-3 p-2 rounded-lg border border-stone-200/80 hover:bg-stone-50 cursor-pointer transition-all"
                 >
                   <div className="w-14 h-16 rounded overflow-hidden bg-stone-100 shrink-0">
-                    <GarmentVisual
-                      silhouette={rel.silhouetteType}
-                      activeColor={rel.colors[0]}
-                      gender={rel.gender}
-                      className="w-full h-full"
-                    />
+                    {rel.image ? (
+                      <img
+                        src={rel.image}
+                        alt={rel.name}
+                        className="w-full h-full object-cover object-top"
+                      />
+                    ) : (
+                      <GarmentVisual
+                        silhouette={rel.silhouetteType}
+                        activeColor={rel.colors[0]}
+                        gender={rel.gender}
+                        className="w-full h-full"
+                      />
+                    )}
                   </div>
                   <div className="overflow-hidden">
                     <h4 className="text-xs font-medium text-stone-900 truncate group-hover:text-stone-700">

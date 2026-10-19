@@ -1,6 +1,1 @@
-{
-  "name": "BUNON | Bangladeshi Traditional Fashion",
-  "description": "BUNON is a premier Bangladeshi traditional fashion house featuring handloom Panjabis, Dhakai Jamdani sarees, tailored Kablis, artisanal three-piece ensembles, and festive ethnic wear.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
+{"name":"BUNON | Bangladeshi Traditional Fashion","description":"BUNON is a premier Bangladeshi traditional fashion house featuring handloom Panjabis, Dhakai Jamdani sarees, tailored Kablis, artisanal three-piece ensembles, and festive ethnic wear.","requestFramePermissions":[],"majorCapabilities":["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]}

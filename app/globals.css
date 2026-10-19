@@ -2,8 +2,9 @@
 
 @layer base {
   :root {
-    --font-serif: var(--font-cormorant), Cormorant Garamond, Garamond, Georgia, serif;
-    --font-sans: var(--font-dm-sans), DM Sans, Inter, system-ui, sans-serif;
+    --font-serif: var(--font-playfair), 'Playfair Display', Georgia, serif;
+    --font-sans: var(--font-jakarta), 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-bangla: var(--font-bangla), 'Hind Siliguri', -apple-system, sans-serif;
   }
   
   html {
@@ -17,6 +18,10 @@
 
 .font-sans {
   font-family: var(--font-sans);
+}
+
+.font-bangla {
+  font-family: var(--font-bangla);
 }
 
 /* Custom subtle scrollbar */

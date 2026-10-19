@@ -156,16 +156,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOc
                 backgroundColor: theme.surfaceBg,
               }}
             >
-              {/* Garment Studio Visual - Headless Tailor Mannequin / Flat-lay */}
-              <GarmentVisual
-                silhouette={isMen ? 'panjabi-embroidered' : 'saree-jamdani'}
-                activeColor={
-                  isMen
-                    ? { name: 'Forest Green', hex: '#17382F', bgTone: '#0f241e' }
-                    : { name: 'Royal Crimson', hex: '#6B1D2F', bgTone: '#4a121f' }
-                }
-                gender={gender}
-                className="w-full h-full"
+              {/* Garment Studio Visual - Real Photography with subtle zoom */}
+              <img
+                src={isMen ? '/images/products/m-panjabi-01.jpg' : '/images/products/w-saree-01.jpg'}
+                alt={isMen ? 'BUNON Mastercraft Panjabi' : 'BUNON Heritage Jamdani Muslin'}
+                className="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105"
               />
 
               {/* Floating Curated Badge / Callout */}
@@ -188,8 +183,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOc
                   </span>
                   <h4 className="text-xs font-semibold text-stone-900 truncate max-w-[200px] sm:max-w-[260px]">
                     {isMen
-                      ? 'Royal Emerald Embroidered Silk'
-                      : 'Heritage Dhakai Jamdani Saree'}
+                      ? 'BUNON Royal Emerald Embroidered Silk'
+                      : 'BUNON Heritage Dhakai Jamdani Saree'}
                   </h4>
                 </div>
                 <div className="text-right">

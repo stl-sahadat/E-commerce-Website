@@ -44,14 +44,25 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
     >
       {/* Product Image Slot */}
       <div className="relative aspect-4/5 w-full overflow-hidden bg-stone-50 border-b border-stone-100">
-        <GarmentVisual
-          silhouette={product.silhouetteType}
-          activeColor={selectedColor}
-          viewMode={viewTexture ? 'fabric-texture' : 'full'}
-          gender={product.gender}
-          isHovered={isHovered}
-          className="w-full h-full"
-        />
+        {product.image && !viewTexture ? (
+          <img
+            src={product.image}
+            alt={product.name}
+            className={`w-full h-full object-cover object-top transition-transform duration-700 ease-out ${
+              isHovered ? 'scale-105' : 'scale-100'
+            }`}
+            loading="lazy"
+          />
+        ) : (
+          <GarmentVisual
+            silhouette={product.silhouetteType}
+            activeColor={selectedColor}
+            viewMode={viewTexture ? 'fabric-texture' : 'full'}
+            gender={product.gender}
+            isHovered={isHovered}
+            className="w-full h-full"
+          />
+        )}
 
         {/* Wishlist Button */}
         <button

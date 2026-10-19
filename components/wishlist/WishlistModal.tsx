@@ -61,12 +61,20 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({ onOpenProduct }) =
                   }}
                 >
                   <div className="w-14 h-16 rounded overflow-hidden bg-stone-100 shrink-0 border border-stone-200/60">
-                    <GarmentVisual
-                      silhouette={product.silhouetteType}
-                      activeColor={product.colors[0]}
-                      gender={product.gender}
-                      className="w-full h-full"
-                    />
+                    {product.image ? (
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover object-top"
+                      />
+                    ) : (
+                      <GarmentVisual
+                        silhouette={product.silhouetteType}
+                        activeColor={product.colors[0]}
+                        gender={product.gender}
+                        className="w-full h-full"
+                      />
+                    )}
                   </div>
                   <div className="min-w-0">
                     <span className="text-[10px] uppercase tracking-wider text-stone-600 block">
