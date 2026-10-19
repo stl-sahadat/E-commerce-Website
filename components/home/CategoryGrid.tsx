@@ -186,13 +186,13 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
               Curated Craftsmanship
             </span>
             <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-normal text-stone-900 tracking-tight">
-              {gender === 'men' ? 'Explore by Category' : 'Shop Traditional Silhouettes'}
+              {gender === 'men' ? 'পাঞ্জাবি, পায়জামা ও কোটি কালেকশন' : 'ঢাকাই জামদানি, থ্রি-পিস ও সিল্ক শাড়ি'}
             </h2>
           </div>
-          <p className="text-xs sm:text-sm text-stone-500 max-w-md font-sans">
+          <p className="text-xs sm:text-sm text-stone-600 max-w-md font-sans">
             {gender === 'men'
-              ? 'Every piece is tailored to exacting measurements, featuring fine natural fabrics and hand-detailed finishes.'
-              : 'Handcrafted without compromise, honoring centuries of Bengali loom heritage and pure silk sericulture.'}
+              ? 'ইসমাইল ফ্যাশনের প্রিমিয়াম পাঞ্জাবি, আরামদায়ক সুতি পায়জামা ও রাজকীয় কোটির বিশেষ সমাহার।'
+              : 'ঐতিহ্যবাহী জামদানি, রাজশাহী সিল্ক, তাঁতের শাড়ি ও এক্সক্লুসিভ থ্রি-পিস সম্ভার।'}
           </p>
         </div>
 

@@ -30,30 +30,30 @@ export const Footer: React.FC = () => {
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex flex-col items-start leading-none">
-              <span className="text-3xl font-serif tracking-[0.25em] font-semibold text-[#D4B779]">
-                BUNON
+              <span className="text-2xl sm:text-3xl font-serif tracking-[0.2em] font-semibold text-[#D4B779]">
+                ISMAIL FASHION
               </span>
-              <span className="text-[10px] font-sans tracking-[0.3em] uppercase text-stone-400 font-medium pl-0.5 mt-1">
-                বুনন · Bangladeshi Traditional Fashion
+              <span className="text-[10px] font-bangla tracking-wider text-stone-300 font-medium pl-0.5 mt-1.5">
+                ইসমাইল ফ্যাশন · ঐতিহ্যবাহী পোশাক সম্ভার
               </span>
             </div>
 
             <p className="text-xs text-stone-400 font-sans leading-relaxed max-w-sm">
-              A premier traditional fashion house celebrating the ancestral handloom heritage of Bengal. Specializing in bespoke Panjabis, imperial Kabli suits, Dhakai Jamdani sarees, and handcrafted celebratory ensembles.
+              ইসমাইল ফ্যাশন (ISMAIL FASHION) বাংলাদেশের ঐতিহ্যবাহী পোশাকের অন্যতম শীর্ষ প্রতিষ্ঠান। আমাদের মূল বিশেষত্ব প্রিমিয়াম পাঞ্জাবি, আরামদায়ক পায়জামা, ঐতিহ্যবাহী ঢাকাই জামদানি ও সিল্ক শাড়ি এবং সুনিপুণ কারুকার্যের থ্রি-পিস কালেকশন।
             </p>
 
             <div className="space-y-2 pt-2 text-xs text-stone-300">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-[#D4B779] shrink-0" />
-                <span>Flagship Atelier: Road 11, Block D, Banani, Dhaka-1213</span>
+                <span>ফ্ল্যাগশিপ আউটলেট: রোড ১১, ব্লক ডি, বনানী, ঢাকা-১২১৩</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#D4B779] shrink-0" />
-                <span>Customer Concierge: +880 1700-000000 (10 AM - 10 PM)</span>
+                <span>কাস্টমার সাপোর্ট: +৮৮০ ১৭০০-০০০০০০ (সকাল ১০টা - রাত ১০টা)</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#D4B779] shrink-0" />
-                <span>care@bunonfashion.com</span>
+                <span>care@ismailfashion.com</span>
               </div>
             </div>
           </div>
@@ -215,7 +215,7 @@ export const Footer: React.FC = () => {
         {/* Bottom Bar: Copyright & Payment Badges */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
           <div>
-            &copy; {new Date().getFullYear()} BUNON Fashion Ltd. All rights reserved. Registered under the Companies Act of Bangladesh.
+            &copy; {new Date().getFullYear()} ISMAIL FASHION (ইসমাইল ফ্যাশন). সর্বস্বত্ব সংরক্ষিত।
           </div>
 
           <div className="flex items-center gap-2 text-[11px] font-sans">

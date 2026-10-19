@@ -18,7 +18,7 @@ export const NewsletterSection: React.FC = () => {
     }
     setError('');
     setSubmitted(true);
-    showNotification('Welcome to BUNON Atelier! Your 10% coupon code is BUNONFIRST.');
+    showNotification('ইসমাইল ফ্যাশনে স্বাগতম! আপনার ১০% ছাড়ের কুপন কোড: ISMAILFIRST');
   };
 
   return (
@@ -26,15 +26,15 @@ export const NewsletterSection: React.FC = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 border border-stone-200 shadow-2xs text-xs">
           <Mail className="w-3.5 h-3.5 text-[#D4B779]" />
-          <span className="font-medium text-stone-700">The BUNON Gazette</span>
+          <span className="font-medium text-stone-700 font-bangla">ইসমাইল ফ্যাশন নিউজলেটার</span>
         </div>
 
         <div className="space-y-2">
           <h2 className="text-2xl sm:text-4xl font-serif text-stone-900 font-normal">
-            Privileged Access to Rare Loom Drops &amp; Festive Edits
+            নতুন পাঞ্জাবি, পায়জামা, শাড়ি ও থ্রি-পিস কালেকশন আপডেট
           </h2>
           <p className="text-xs sm:text-sm text-stone-600 max-w-xl mx-auto font-sans leading-relaxed">
-            Subscribe to receive private previews of our limited handwoven Dhakai Jamdani batches, seasonal Panjabi releases, and private bridal appointments.
+            ইসমাইল ফ্যাশনের নতুন ডিজাইন ও উৎসবের এক্সক্লুসিভ কালেকশন সম্পর্কে সবার আগে জানতে সাবস্ক্রাইব করুন। প্রথম অর্ডারে পাবেন বিশেষ ১০% ছাড়!
           </p>
         </div>
 
@@ -44,14 +44,14 @@ export const NewsletterSection: React.FC = () => {
               <CheckCircle2 className="w-6 h-6" />
             </div>
             <h4 className="font-serif text-lg font-semibold text-stone-900">
-              Welcome to the Atelier
+              ইসমাইল ফ্যাশনে আপনাকে স্বাগতম
             </h4>
             <p className="text-xs text-stone-600">
-              Your 10% welcome privilege has been activated. Apply promo code:
+              আপনার ১০% ওয়েলকাম ডিসকাউন্ট সক্রিয় হয়েছে। চেকআউটে ব্যবহার করুন:
             </p>
             <div className="pt-2">
               <span className="inline-block px-4 py-1.5 bg-stone-100 rounded-lg font-mono text-sm font-bold text-stone-900 border border-stone-200 tracking-wider">
-                BUNONFIRST
+                ISMAILFIRST
               </span>
             </div>
           </div>

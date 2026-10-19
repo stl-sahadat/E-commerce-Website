@@ -24,20 +24,20 @@ const hindSiliguri = Hind_Siliguri({
 });
 
 export const metadata: Metadata = {
-  title: 'BUNON | Premium Bangladeshi Traditional Fashion',
+  title: 'ইসমাইল ফ্যাশন | ISMAIL FASHION - প্রিমিয়াম পাঞ্জাবি, শাড়ি, থ্রি-পিস ও পায়জামা',
   description:
-    'Discover artisanal Panjabis, Dhakai Jamdani sarees, tailored Kablis, and heritage handloom ensembles from Bangladesh.',
+    'ইসমাইল ফ্যাশন (ISMAIL FASHION): ঐতিহ্যবাহী হ্যান্ডলুম পাঞ্জাবি, সুতি পায়জামা, ঢাকাই জামদানি ও সিল্ক শাড়ি এবং এক্সক্লুসিভ থ্রি-পিস কালেকশন।',
   openGraph: {
-    title: 'BUNON | Premium Bangladeshi Traditional Fashion',
+    title: 'ইসমাইল ফ্যাশন | ISMAIL FASHION - ঐতিহ্যবাহী পোশাক সম্ভার',
     description:
-      'Discover artisanal Panjabis, Dhakai Jamdani sarees, tailored Kablis, and heritage handloom ensembles from Bangladesh.',
+      'ইসমাইল ফ্যাশন (ISMAIL FASHION): ঐতিহ্যবাহী হ্যান্ডলুম পাঞ্জাবি, সুতি পায়জামা, ঢাকাই জামদানি ও সিল্ক শাড়ি এবং এক্সক্লুসিভ থ্রি-পিস কালেকশন।',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BUNON | Premium Bangladeshi Traditional Fashion',
+    title: 'ইসমাইল ফ্যাশন | ISMAIL FASHION',
     description:
-      'Discover artisanal Panjabis, Dhakai Jamdani sarees, tailored Kablis, and heritage handloom ensembles from Bangladesh.',
+      'ইসমাইল ফ্যাশন (ISMAIL FASHION): প্রিমিয়াম পাঞ্জাবি, পায়জামা, থ্রি-পিস ও শাড়ির নির্ভরযোগ্য প্রতিষ্ঠান।',
   },
 };
 

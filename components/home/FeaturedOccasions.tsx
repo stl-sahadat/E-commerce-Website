@@ -59,13 +59,13 @@ export const FeaturedOccasions: React.FC<FeaturedOccasionsProps> = ({ onSelectCo
             className="text-xs uppercase tracking-[0.25em] font-semibold"
             style={{ color: theme.primary }}
           >
-            Curated Occasions
+            Curated Occasions · উৎসব ও বিশেষ আয়োজন
           </span>
           <h2 className="text-2xl sm:text-4xl font-serif text-stone-900 font-normal">
-            Garments Tailored for Momentous Celebrations
+            বিশেষ উৎসব ও উদযাপনে ইসমাইল ফ্যাশনের পোশাক
           </h2>
           <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-            From the morning Eid prayer to opulent wedding evenings across Dhaka and Chittagong, discover silhouettes designed to leave an indelible impression.
+            ঈদের আনন্দময় সকালের নামাজ থেকে শুরু করে রাজকীয় বিয়ের জমকালো অনুষ্ঠান—ইসমাইল ফ্যাশন নিয়ে এসেছে সেরা ঐতিহ্যবাহী পাঞ্জাবি, পায়জামা, শাড়ি ও থ্রি-পিস সম্ভার।
           </p>
         </div>
 

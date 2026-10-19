@@ -213,10 +213,10 @@ export const CheckoutModal: React.FC = () => {
               <button
                 type="button"
                 onClick={handleClose}
-                className="w-full py-3 rounded-xl text-xs sm:text-sm font-semibold uppercase tracking-wider text-white transition-all shadow-md hover:shadow-lg cursor-pointer"
+                className="w-full py-3 rounded-xl text-xs sm:text-sm font-semibold uppercase tracking-wider text-white transition-all shadow-md hover:shadow-lg cursor-pointer font-bangla"
                 style={{ backgroundColor: theme.primary }}
               >
-                Return to BUNON Store
+                ইসমাইল ফ্যাশনে ফিরে যান (Back to Store)
               </button>
             </div>
           ) : (

@@ -255,7 +255,7 @@ export const CartDrawer: React.FC = () => {
               <div className="relative flex-1">
                 <input
                   type="text"
-                  placeholder="Promo code (e.g. BUNONFIRST)"
+                  placeholder="Promo code (e.g. ISMAILFIRST)"
                   value={inputCoupon}
                   onChange={(e) => setInputCoupon(e.target.value)}
                   className="w-full text-xs pl-8 pr-2 py-2 rounded-md border border-stone-200 bg-white uppercase placeholder:normal-case font-mono"

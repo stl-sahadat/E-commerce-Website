@@ -818,7 +818,7 @@ export const GarmentVisual: React.FC<GarmentVisualProps> = ({
 
       {/* Subtle brand watermark & texture pill */}
       <div className="absolute bottom-3 right-3 text-[10px] tracking-widest uppercase font-serif text-stone-500/80 pointer-events-none select-none">
-        BUNON ATELIER
+        ISMAIL FASHION
       </div>
     </div>
   );

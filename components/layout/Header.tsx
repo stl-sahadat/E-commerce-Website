@@ -198,13 +198,13 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog
             }}
           >
             <span
-              className="text-2xl sm:text-3xl font-serif tracking-[0.22em] font-semibold transition-colors duration-300"
+              className="text-xl sm:text-2xl font-serif tracking-[0.18em] font-bold transition-colors duration-300"
               style={{ color: theme.primary }}
             >
-              BUNON
+              ISMAIL FASHION
             </span>
-            <span className="text-[9px] font-sans tracking-[0.3em] uppercase text-stone-600 font-medium pl-0.5">
-              বুনন · Heritage Fashion
+            <span className="text-[9px] font-bangla tracking-wider uppercase text-stone-600 font-semibold pl-0.5">
+              ইসমাইল ফ্যাশন · প্রিমিয়াম ট্র্যাডিশনাল
             </span>
           </a>
         </div>
@@ -427,13 +427,13 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog
             >
               <div>
                 <span
-                  className="text-xl font-serif tracking-[0.2em] font-semibold"
+                  className="text-lg font-serif tracking-[0.15em] font-bold"
                   style={{ color: theme.primary }}
                 >
-                  BUNON
+                  ISMAIL FASHION
                 </span>
-                <p className="text-[10px] text-stone-500 uppercase tracking-wider">
-                  {gender === 'men' ? "Men's Collection" : "Women's Collection"}
+                <p className="text-[10px] text-stone-600 font-bangla">
+                  ইসমাইল ফ্যাশন · {gender === 'men' ? 'পুরুষদের পোশাক' : 'মহিলাদের পোশাক'}
                 </p>
               </div>
               <button

@@ -234,15 +234,15 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({ onOpenProductDetails }
                 className="text-xs uppercase tracking-[0.2em] font-semibold"
                 style={{ color: theme.primary }}
               >
-                {gender === 'men' ? "Men's Sartorial Line" : "Women's Heritage Loom"}
+                {gender === 'men' ? 'ইসমাইল ফ্যাশন · পাঞ্জাবি ও পায়জামা' : 'ইসমাইল ফ্যাশন · শাড়ি ও থ্রি-পিস'}
               </span>
               <span className="text-stone-300">·</span>
-              <span className="text-xs text-stone-500 tabular-nums">
-                {filteredProducts.length} {filteredProducts.length === 1 ? 'Design' : 'Designs'}
+              <span className="text-xs text-stone-500 tabular-nums font-bangla">
+                {filteredProducts.length} টি এক্সক্লুসিভ কালেকশন
               </span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-serif text-stone-900 font-normal">
-              {gender === 'men' ? 'Traditional Clothing Catalog' : 'Heritage Handloom Collection'}
+              {gender === 'men' ? 'প্রিমিয়াম পাঞ্জাবি ও পায়জামা সম্ভার' : 'ঐতিহ্যবাহী ঢাকাই জামদানি, শাড়ি ও থ্রি-পিস'}
             </h2>
           </div>
 

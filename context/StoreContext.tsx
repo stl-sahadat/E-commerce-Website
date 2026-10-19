@@ -108,7 +108,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [gender, setGender] = useState<Gender>(() => {
     if (typeof window !== 'undefined') {
       try {
-        const saved = localStorage.getItem('bunon_gender');
+        const saved = localStorage.getItem('ismail_gender');
         if (saved === 'men' || saved === 'women') return saved;
       } catch {}
     }
@@ -117,7 +117,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [products, setProducts] = useState<Product[]>(() => {
     if (typeof window !== 'undefined') {
       try {
-        const saved = localStorage.getItem('bunon_products_v4');
+        const saved = localStorage.getItem('ismail_products_v5');
         if (saved) return JSON.parse(saved);
       } catch {}
     }
@@ -126,7 +126,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [cart, setCart] = useState<CartItem[]>(() => {
     if (typeof window !== 'undefined') {
       try {
-        const saved = localStorage.getItem('bunon_cart');
+        const saved = localStorage.getItem('ismail_cart');
         if (saved) return JSON.parse(saved);
       } catch {}
     }
@@ -135,7 +135,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [wishlist, setWishlist] = useState<WishlistItem[]>(() => {
     if (typeof window !== 'undefined') {
       try {
-        const saved = localStorage.getItem('bunon_wishlist');
+        const saved = localStorage.getItem('ismail_wishlist');
         if (saved) return JSON.parse(saved);
       } catch {}
     }
@@ -144,7 +144,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [orders, setOrders] = useState<CustomerOrder[]>(() => {
     if (typeof window !== 'undefined') {
       try {
-        const saved = localStorage.getItem('bunon_orders');
+        const saved = localStorage.getItem('ismail_orders');
         if (saved) return JSON.parse(saved);
       } catch {}
     }
@@ -173,31 +173,31 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // Sync state to localStorage
   useEffect(() => {
     try {
-      localStorage.setItem('bunon_gender', gender);
+      localStorage.setItem('ismail_gender', gender);
     } catch {}
   }, [gender]);
 
   useEffect(() => {
     try {
-      localStorage.setItem('bunon_cart', JSON.stringify(cart));
+      localStorage.setItem('ismail_cart', JSON.stringify(cart));
     } catch {}
   }, [cart]);
 
   useEffect(() => {
     try {
-      localStorage.setItem('bunon_wishlist', JSON.stringify(wishlist));
+      localStorage.setItem('ismail_wishlist', JSON.stringify(wishlist));
     } catch {}
   }, [wishlist]);
 
   useEffect(() => {
     try {
-      localStorage.setItem('bunon_orders', JSON.stringify(orders));
+      localStorage.setItem('ismail_orders', JSON.stringify(orders));
     } catch {}
   }, [orders]);
 
   useEffect(() => {
     try {
-      localStorage.setItem('bunon_products_v4', JSON.stringify(products));
+      localStorage.setItem('ismail_products_v5', JSON.stringify(products));
     } catch {}
   }, [products]);
 
@@ -285,13 +285,13 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const applyPromoCode = (code: string) => {
     const cleanCode = code.trim().toUpperCase();
-    if (cleanCode === 'BUNONFIRST' || cleanCode === 'EID2026') {
+    if (cleanCode === 'ISMAILFIRST' || cleanCode === 'EID2026') {
       setPromoCode(cleanCode);
       setDiscountPercent(10);
-      showNotification('Coupon applied! 10% discount added.');
+      showNotification('কুপন সফলভাবে যুক্ত হয়েছে! ১০% ছাড় পেয়েছেন।');
       return { success: true, message: '10% discount applied to your order!' };
     }
-    return { success: false, message: 'Invalid promo code. Try BUNONFIRST' };
+    return { success: false, message: 'Invalid promo code. Try ISMAILFIRST' };
   };
 
   // Wishlist operations

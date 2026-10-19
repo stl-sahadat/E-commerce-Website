@@ -39,22 +39,22 @@ export const CraftsmanshipStory: React.FC = () => {
                 className="text-xs uppercase tracking-[0.25em] font-semibold"
                 style={{ color: theme.primary }}
               >
-                The BUNON Philosophy
+                The ISMAIL FASHION Heritage
               </span>
               <span className="text-stone-300">·</span>
-              <span className="text-xs font-serif italic text-stone-500">বুননের দর্শন</span>
+              <span className="text-xs font-bangla text-stone-500">ইসমাইল ফ্যাশনের ঐতিহ্য</span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-stone-900 tracking-tight leading-tight">
-              Weaving Bengal’s Soul Into Modern Aristocracy
+              বাংলার ঐতিহ্যবাহী বুনন ও সমকালীন আভিজাত্য
             </h2>
 
             <p className="text-sm text-stone-600 font-sans leading-relaxed">
-              In the historic Bengali vernacular, <strong className="font-semibold text-stone-900">BUNON (বুনন)</strong> means the rhythmic intertwining of warp and weft. For over four centuries, the Bengal river basin stood as the textile heart of the civilized world — spinning legendary muslins so gossamer they could pass through a signet ring.
+              <strong className="font-semibold text-stone-900">ইসমাইল ফ্যাশন (ISMAIL FASHION)</strong> বাংলার সমৃদ্ধ তাঁত ও হস্তশিল্পের ধারক ও বাহক। আমাদের মূল লক্ষ্য—দেশীয় সংস্কৃতির ঐতিহ্যবাহী পোশাককে নিখুঁত ফিনিশিং, আরামদায়ক ফেব্রিক এবং আধুনিক ডিজাইনে সবার কাছে পৌঁছে দেওয়া।
             </p>
 
             <p className="text-sm text-stone-600 font-sans leading-relaxed">
-              Today, BUNON preserves this sacred craft for contemporary connoisseurs. We refuse industrial speed in favor of mindful luxury: pure natural fibers, hand-cast metal buttons, heirloom Zari needlework, and tailored cuts that feel commanding yet utterly natural.
+              আজ ইসমাইল ফ্যাশন নিয়ে এসেছে প্রিমিয়াম সিল্ক ও খাদি পাঞ্জাবি, সুতি আলিগড়ি ও চুড়িদার পায়জামা, ঐতিহ্যবাহী ঢাকাই জামদানি ও রাজশাহী সিল্ক শাড়ি এবং সুনিপুণ কারুকাজের এক্সক্লুসিভ থ্রি-পিস কালেকশন। প্রতিটি পোশাকে শতভাগ আভিজাত্য ও কোয়ালিটির নিশ্চয়তা।
             </p>
 
             <div className="pt-4 flex items-center gap-4 text-xs font-serif italic text-stone-700">

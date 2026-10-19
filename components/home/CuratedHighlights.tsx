@@ -31,10 +31,10 @@ export const CuratedHighlights: React.FC<CuratedHighlightsProps> = ({
           <div>
             <div className="flex items-center gap-1.5 mb-1 text-xs font-semibold uppercase tracking-wider" style={{ color: theme.primary }}>
               <Sparkles className="w-3.5 h-3.5 text-[#D4B779]" />
-              <span>Editorial Selection</span>
+              <span className="font-bangla">ইসমাইল ফ্যাশন বিশেষ সিলেকশন</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-stone-900 font-normal">
-              {activeTab === 'new-arrivals' ? 'New Seasonal Arrivals' : 'Most Cherished Classics'}
+              {activeTab === 'new-arrivals' ? 'নতুন সিজনাল অ্যারাইভালস' : 'জনপ্রিয় ও সেরা কালেকশন'}
             </h2>
           </div>
 

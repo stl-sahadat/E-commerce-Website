@@ -83,7 +83,7 @@ export const AdminDashboard: React.FC = () => {
       sizes: newGender === 'men' ? ['38', '40', '42', '44'] : ['38', '40', '42'],
       fabric: newFabric,
       weavingOrWork: 'Handcrafted Heritage Weave',
-      description: 'Exclusive artisanal garment created at the BUNON design studio.',
+      description: 'Exclusive artisanal garment created at the ISMAIL FASHION design studio.',
       careInstructions: ['Dry clean or cold hand wash'],
       silhouetteType: newSilhouette,
       patternDetail: 'Fine tonal geometric detailing',
@@ -112,10 +112,10 @@ export const AdminDashboard: React.FC = () => {
         <div className="px-6 py-4 border-b border-stone-200 flex items-center justify-between bg-stone-900 text-white shrink-0">
           <div className="flex items-center gap-3">
             <span className="font-serif text-lg font-bold tracking-wider text-[#D4B779]">
-              BUNON
+              ISMAIL FASHION
             </span>
-            <span className="text-xs uppercase tracking-widest text-stone-400 font-sans">
-              Store Management Console
+            <span className="text-xs uppercase tracking-widest text-stone-400 font-bangla">
+              ইসমাইল ফ্যাশন অ্যাডমিন কনসোল
             </span>
             <span className="text-[10px] bg-stone-800 text-stone-300 px-2 py-0.5 rounded">
               Demo Environment

@@ -1,19 +1,19 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# ইসমাইল ফ্যাশন | ISMAIL FASHION
+### Premium Bangladeshi Traditional Clothing Platform
 
-# Run and deploy your AI Studio app
+An elegant, production-ready traditional fashion e-commerce web platform for **ISMAIL FASHION (ইসমাইল ফ্যাশন)**, featuring two distinct bespoke shopping experiences:
+- **Men's Collection**: Luxury Panjabi, Combed Cotton Pajama sets, Structured Kablis, and Brocade Waistcoats (Koti).
+- **Women's Collection**: Authentic Dhakai Jamdani Sarees, Rajshahi Pure Silk, Tangail Cottons, Artisanal Three-Piece Ensembles, Kurtis, and Festive Wear.
 
-This contains everything you need to run your app locally.
-https://ai.studio/apps/6f8a413e-9387-494b-b941-74b8ff0f28d9
+Strict compliance: 100% direct product photography with zero visible female faces/models.
+
+## Tech Stack
+- **Framework**: Next.js 15 (App Router)
+- **Library**: React 19, TypeScript
+- **Styling**: Tailwind CSS 4, Motion
+- **Typography**: Playfair Display (Serif), Plus Jakarta Sans (Sans-serif), Hind Siliguri (Bengali)
 
 ## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+1. `npm install`
+2. `npm run dev`
+3. Open `http://localhost:3000`

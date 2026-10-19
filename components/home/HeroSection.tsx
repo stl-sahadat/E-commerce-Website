@@ -41,14 +41,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOc
             {/* Kicker */}
             <div className="flex items-center gap-2">
               <span
-                className="text-xs uppercase tracking-[0.25em] font-medium"
-                style={{ color: isMen ? '#17382F' : '#6B2838' }}
+                className="text-xs uppercase tracking-[0.22em] font-semibold"
+                style={{ color: theme.primary }}
               >
-                {isMen ? 'The Imperial Edit · Season 2026' : 'Artisanal Heritage · Edition 2026'}
+                {isMen ? 'ISMAIL FASHION · পাঞ্জাবি ও পায়জামা' : 'ISMAIL FASHION · শাড়ি ও থ্রি-পিস'}
               </span>
               <span className="text-stone-300">|</span>
-              <span className="text-xs font-serif italic text-stone-500">
-                {isMen ? 'সমকালীন ঐতিহ্য' : 'ঐতিহ্যের বুনন'}
+              <span className="text-xs font-bangla text-stone-500">
+                {isMen ? 'আভিজাত্য ও ঐতিহ্য' : 'বাংলার সেরা কালেকশন'}
               </span>
             </div>
 
@@ -66,13 +66,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOc
                     className="italic font-normal"
                     style={{ color: theme.primary }}
                   >
-                    Handwoven Panjabis
+                    Premium Panjabis
                   </span>{' '}
-                  &amp; Imperial Kablis
+                  &amp; Classic Pajamas
                 </>
               ) : (
                 <>
-                  The Poetry of{' '}
+                  The Elegance of{' '}
                   <span
                     className="italic font-normal"
                     style={{ color: theme.primary }}
@@ -80,7 +80,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOc
                     Dhakai Jamdani
                   </span>{' '}
                   <br className="hidden sm:inline" />
-                  &amp; Pure Rajshahi Silks
+                  &amp; Exclusive Three-Piece
                 </>
               )}
             </h1>
@@ -88,8 +88,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOc
             {/* Subheading */}
             <p className="text-sm sm:text-base text-stone-600 max-w-xl font-sans leading-relaxed">
               {isMen
-                ? 'Rooted in Bengal’s aristocratic sartorial legacy. Tailored from fine mulberry silks, hand-spun khadi cottons, and brocade kotis adorned with hand-cast antique brass buttons and tone-on-tone embroidery.'
-                : 'Woven along the banks of the Shitalakshya and Padma rivers. Mastercrafted translucent muslin Jamdani sarees, fine Tant cottons, and velvet-touch three-piece sets styled with quiet luxury.'}
+                ? 'ইসমাইল ফ্যাশন (ISMAIL FASHION) নিয়ে এসেছে প্রিমিয়াম সিল্ক ও খাদি পাঞ্জাবি, আরামদায়ক সুতি পায়জামা, কাবলি এবং আভিজাত্য কোটি। নিজস্ব দক্ষ কারিগর দ্বারা নিখুঁত ফিনিশিং।'
+                : 'ইসমাইল ফ্যাশনের বিশ্বস্ত সংগ্রহে থাকছে খাঁটি ঢাকাই জামদানি, পিওর রাজশাহী সিল্ক শাড়ি, সুতি তাঁতের শাড়ি এবং উৎসবের আকর্ষণীয় এক্সক্লুসিভ থ্রি-পিস ও সালোয়ার স্যুট।'}
             </p>
 
             {/* CTAs */}
@@ -159,7 +159,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOc
               {/* Garment Studio Visual - Real Photography with subtle zoom */}
               <img
                 src={isMen ? '/images/products/m-panjabi-01.jpg' : '/images/products/w-saree-01.jpg'}
-                alt={isMen ? 'BUNON Mastercraft Panjabi' : 'BUNON Heritage Jamdani Muslin'}
+                alt={isMen ? 'ISMAIL FASHION Mastercraft Panjabi' : 'ISMAIL FASHION Heritage Jamdani Saree'}
                 className="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105"
               />
 
@@ -169,7 +169,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOc
               >
                 <span className="w-2 h-2 rounded-full" style={{ backgroundColor: theme.primary }} />
                 <span className="text-[11px] font-sans font-medium uppercase tracking-wider text-stone-800">
-                  {isMen ? 'Mastercraft Panjabi' : 'Heritage Jamdani Muslin'}
+                  {isMen ? 'Mastercraft Panjabi' : 'Heritage Jamdani Saree'}
                 </span>
               </div>
 
@@ -183,8 +183,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow, onExploreOc
                   </span>
                   <h4 className="text-xs font-semibold text-stone-900 truncate max-w-[200px] sm:max-w-[260px]">
                     {isMen
-                      ? 'BUNON Royal Emerald Embroidered Silk'
-                      : 'BUNON Heritage Dhakai Jamdani Saree'}
+                      ? 'ISMAIL FASHION Royal Emerald Silk Panjabi'
+                      : 'ISMAIL FASHION Heritage Dhakai Jamdani Saree'}
                   </h4>
                 </div>
                 <div className="text-right">
