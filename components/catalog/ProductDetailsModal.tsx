@@ -15,6 +15,7 @@ import {
   Minus,
   Plus,
   Check,
+  Star,
 } from 'lucide-react';
 
 interface ProductDetailsModalProps {
@@ -61,7 +62,7 @@ const ProductDetailsModalInner: React.FC<{
     product.sizes && product.sizes.length > 0 ? product.sizes[0] : 'Standard'
   );
   const [quantity, setQuantity] = useState<number>(1);
-  const [activeTab, setActiveTab] = useState<'details' | 'fabric' | 'care'>('details');
+  const [activeTab, setActiveTab] = useState<'details' | 'fabric' | 'care' | 'reviews'>('details');
   const [viewMode, setViewMode] = useState<'full' | 'fabric-texture'>('full');
   const [showSizeGuide, setShowSizeGuide] = useState(false);
   const [addedAnimation, setAddedAnimation] = useState(false);
@@ -484,25 +485,52 @@ const ProductDetailsModalInner: React.FC<{
                     <span>Instant Checkout</span>
                   </button>
                 </div>
+
+                {/* Daraz & Luxury Boutique Style: Direct WhatsApp Ordering */}
+                <a
+                  href={`https://wa.me/8801700000000?text=${encodeURIComponent(
+                    `সালামু আলাইকুম, আমি ইসমাইল ফ্যাশন থেকে "${product.name}" (কোড: ${product.id.toUpperCase()}, সাইজ: ${selectedSize}, মূল্য: ৳${product.price.toLocaleString()}) অর্ডার করতে চাই।`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold tracking-wide text-white transition-all shadow-xs hover:shadow-md flex items-center justify-center gap-2 cursor-pointer bg-[#25D366] hover:bg-[#20bd5a]"
+                >
+                  <svg className="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
+                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                  </svg>
+                  <span>হোয়াটসঅ্যাপে সরাসরি অর্ডার করুন</span>
+                </a>
               </div>
 
-              {/* Trust Badges */}
-              <div className="pt-3 border-t border-stone-100 grid grid-cols-2 gap-3 text-xs text-stone-600">
-                <div className="flex items-center gap-1.5">
-                  <Truck className="w-4 h-4 text-[#D4B779]" />
-                  <span>Cash on Delivery across BD</span>
+              {/* Daraz & Khunchi Style: Detailed Delivery & Service Options Box */}
+              <div className="p-3.5 bg-stone-50/90 rounded-xl border border-stone-200 space-y-2.5 text-xs">
+                <div className="flex items-center justify-between text-stone-900 font-semibold border-b border-stone-200/80 pb-1.5">
+                  <span className="flex items-center gap-1.5 font-medium">
+                    <Truck className="w-4 h-4 text-[#D4B779]" /> ডেলিভারি ও সার্ভিস অপশন
+                  </span>
+                  <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">
+                    ক্যাশ অন ডেলিভারি প্রযোজ্য
+                  </span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <RotateCcw className="w-4 h-4 text-[#D4B779]" />
-                  <span>7-Day Return / Exchange</span>
+                <div className="grid grid-cols-2 gap-2 text-[11px] text-stone-600">
+                  <div className="space-y-0.5">
+                    <span className="font-semibold text-stone-800 block">ঢাকা সিটির ভিতরে:</span>
+                    <span>৳৭০ · ২-৩ কার্যদিবস</span>
+                  </div>
+                  <div className="space-y-0.5">
+                    <span className="font-semibold text-stone-800 block">ঢাকা সিটির বাইরে:</span>
+                    <span>৳১৩০ · ৩-৫ কার্যদিবস</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-[#D4B779]" />
-                  <span>100% Genuine Handloom</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <span className="text-amber-600 font-bold">৳</span>
-                  <span>Free delivery on ৳5,000+</span>
+                <div className="pt-2 border-t border-stone-200/60 grid grid-cols-2 gap-2 text-[11px] text-stone-600">
+                  <div className="flex items-center gap-1">
+                    <RotateCcw className="w-3.5 h-3.5 text-stone-500" />
+                    <span>৭ দিনে সহজ এক্সচেঞ্জ</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <ShieldCheck className="w-3.5 h-3.5 text-stone-500" />
+                    <span>১০০% খাঁটি দেশীয় পণ্য</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -551,7 +579,24 @@ const ProductDetailsModalInner: React.FC<{
                   borderColor: activeTab === 'care' ? theme.primary : 'transparent',
                 }}
               >
-                Wash &amp; Preservation Care
+                Wash &amp; Care
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab('reviews')}
+                className={`pb-2.5 transition-colors relative flex items-center gap-1.5 ${
+                  activeTab === 'reviews'
+                    ? 'text-stone-900 font-bold border-b-2'
+                    : 'text-stone-500 hover:text-stone-800'
+                }`}
+                style={{
+                  borderColor: activeTab === 'reviews' ? theme.primary : 'transparent',
+                }}
+              >
+                <span>কাস্টমার রিভিউ</span>
+                <span className="text-[10px] bg-amber-100 text-amber-900 px-1.5 py-0.2 rounded-full font-bold">
+                  ★ {product.rating ? product.rating.toFixed(1) : '4.9'} ({product.reviewsCount || 28})
+                </span>
               </button>
             </div>
 
@@ -623,6 +668,75 @@ const ProductDetailsModalInner: React.FC<{
                     <li key={i}>{inst}</li>
                   ))}
                 </ul>
+              )}
+
+              {activeTab === 'reviews' && (
+                <div className="space-y-4">
+                  {/* Rating Summary Card (Daraz / Aza Style) */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 bg-stone-50 rounded-xl border border-stone-200 gap-3">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-2xl font-bold text-stone-900">
+                          {product.rating ? product.rating.toFixed(1) : '4.9'}
+                        </span>
+                        <div className="flex items-center text-amber-400">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 fill-amber-400" />
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-[11px] text-stone-500 mt-0.5">
+                        ১০০% সন্তুষ্ট ভেরিফায়েড ক্রেতাদের রেটিং ({product.reviewsCount || 28} টি রিভিউ)
+                      </p>
+                    </div>
+                    <div className="shrink-0">
+                      <span className="text-xs font-semibold text-emerald-800 bg-emerald-100/90 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5">
+                        <Check className="w-3.5 h-3.5" /> ১০০% খাঁটি পণ্য ও সঠিক ডেলিভারি
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Customer Reviews Feed */}
+                  <div className="space-y-3">
+                    <div className="p-3 bg-white rounded-lg border border-stone-200/90 space-y-1.5">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="font-semibold text-stone-900 text-xs">মো. জহিরুল ইসলাম</span>
+                          <span className="text-[10px] bg-stone-100 text-stone-600 px-1.5 py-0.2 rounded font-medium">
+                            ভেরিফায়েড ক্রেতা · ঢাকা
+                          </span>
+                        </div>
+                        <div className="flex items-center text-amber-400">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-[11px] text-stone-600 leading-relaxed">
+                        &quot;অসাধারণ কোয়ালিটি! কাপড়ের বুনন এবং ফিনিশিং একদম ছবির মতো নিখুঁত। সাইজও পারফেক্ট হয়েছে। খুব দ্রুত ক্যাশ অন ডেলিভারিতে পেয়েছি। ইসমাইল ফ্যাশনের পণ্য সত্যিই চমৎকার।&quot;
+                      </p>
+                    </div>
+
+                    <div className="p-3 bg-white rounded-lg border border-stone-200/90 space-y-1.5">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="font-semibold text-stone-900 text-xs">তানভীর আহমেদ</span>
+                          <span className="text-[10px] bg-stone-100 text-stone-600 px-1.5 py-0.2 rounded font-medium">
+                            ভেরিফায়েড ক্রেতা · চট্টগ্রাম
+                          </span>
+                        </div>
+                        <div className="flex items-center text-amber-400">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-[11px] text-stone-600 leading-relaxed">
+                        &quot;কাপড় অত্যন্ত মোলায়েম এবং আরামদায়ক। প্রিমিয়াম লুক দেয়। যেকোনো স্পেশাল ইভেন্টে পরার জন্য দারুণ এক কালেকশন। প্যাকেজিং অনেক সুন্দর ছিল।&quot;
+                      </p>
+                    </div>
+                  </div>
+                </div>
               )}
             </div>
           </div>

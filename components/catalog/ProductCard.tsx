@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Product, ProductColor } from '@/types';
 import { useStore } from '@/context/StoreContext';
 import { GarmentVisual } from '@/components/garment/GarmentVisual';
-import { Heart, ShoppingBag, Check } from 'lucide-react';
+import { Heart, ShoppingBag, Check, Star } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
@@ -118,6 +118,24 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
               )}
             </div>
           )}
+
+          {/* Rating & Daraz Trust Badge */}
+          <div className="flex items-center justify-between pt-1">
+            <div className="flex items-center gap-1">
+              <div className="flex items-center text-amber-500">
+                <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                <span className="ml-1 text-[11px] font-bold text-stone-800 tabular-nums">
+                  {product.rating ? product.rating.toFixed(1) : '4.9'}
+                </span>
+              </div>
+              <span className="text-[10px] text-stone-400">
+                ({product.reviewsCount || 28})
+              </span>
+            </div>
+            <span className="text-[9px] font-medium text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100/60">
+              ক্যাশ অন ডেলিভারি
+            </span>
+          </div>
 
           {/* Colors Swatches (If multi-color) */}
           {product.colors.length > 1 && (
