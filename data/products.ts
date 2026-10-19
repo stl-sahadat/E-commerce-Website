@@ -87,8 +87,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       sleeve: 'Full sleeve with roll-tab option',
       weaveOrigin: 'Mainamati Handloom Guild, Comilla',
   },
-      image: '/images/products/m-panjabi-02.jpg',
-    images: ["/images/products/m-panjabi-02.jpg"],
+      image: '',
+    images: [],
   },
   {
     id: 'm-panjabi-03',
@@ -129,8 +129,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       sleeve: 'Full sleeve with ornate embroidered cuffs',
       weaveOrigin: 'Rajshahi Silk Cluster, Bangladesh',
   },
-      image: '/images/products/m-panjabi-03.jpg',
-    images: ["/images/products/m-panjabi-03.jpg"],
+      image: '/images/products/m-panjabi-04.jpg',
+    images: ["/images/products/m-panjabi-04.jpg"],
   },
   {
     id: 'm-kabli-01',
@@ -173,8 +173,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       includedPieces: 'Kurta Tunic and Matching Shalwar Trouser Set',
       weaveOrigin: 'Dhaka Atelier Workshop',
   },
-      image: '/images/products/m-kabli-01.jpg',
-    images: ["/images/products/m-kabli-01.jpg"],
+      image: '',
+    images: [],
   },
   {
     id: 'm-waistcoat-01',
@@ -214,8 +214,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       length: '27" Hip Length',
       includedPieces: 'Single Waistcoat Outer (Panjabi sold separately)',
   },
-      image: '/images/products/m-waistcoat-01.jpg',
-    images: ["/images/products/m-waistcoat-01.jpg"],
+      image: '',
+    images: [],
   },
   {
     id: 'm-panjabi-04',
@@ -324,8 +324,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       length: '41"',
       sleeve: 'Full sleeve',
   },
-      image: '/images/products/m-panjabi-05.jpg',
-    images: ["/images/products/m-panjabi-05.jpg"],
+      image: '/images/products/m-panjabi-01.jpg',
+    images: ["/images/products/m-panjabi-01.jpg"],
   },
 
     {
@@ -368,8 +368,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       sleeve: 'Full sleeve with cuff detail',
       weaveOrigin: 'Mirpur Benarasi Palli, Dhaka',
     },
-    image: '/images/products/m-panjabi-06.jpg',
-    images: ['/images/products/m-panjabi-06.jpg'],
+    image: '/images/products/m-panjabi-04.jpg',
+    images: ['/images/products/m-panjabi-04.jpg'],
   },
   {
     id: 'm-kabli-02',
@@ -412,8 +412,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       weaveOrigin: 'ISMAIL FASHION Master Tailors, Dhaka',
       includedPieces: 'Kabli Kurta + Matching Pleated Shalwar',
     },
-    image: '/images/products/m-kabli-02.jpg',
-    images: ['/images/products/m-kabli-02.jpg'],
+    image: '',
+    images: [],
   },
   {
     id: 'm-waistcoat-02',
@@ -454,8 +454,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       sleeve: 'Sleeveless with contoured armholes',
       weaveOrigin: 'Banarasi Palli, Mirpur',
     },
-    image: '/images/products/m-waistcoat-02.jpg',
-    images: ['/images/products/m-waistcoat-02.jpg'],
+    image: '',
+    images: [],
   },
   {
     id: 'm-pajama-02',
@@ -492,8 +492,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       length: '48" with graceful ankle ruffles',
       weaveOrigin: 'Babu Bazar Handloom Market, Old Dhaka',
     },
-    image: '/images/products/m-pajama-02.jpg',
-    images: ['/images/products/m-pajama-02.jpg'],
+    image: '/images/products/m-pajama-01.jpg',
+    images: ['/images/products/m-pajama-01.jpg'],
   },
   {
     id: 'm-pajama-03',
@@ -529,8 +529,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       length: '41" Standard Inseam',
       weaveOrigin: 'Mirpur Silk Cluster, Dhaka',
     },
-    image: '/images/products/m-pajama-03.jpg',
-    images: ['/images/products/m-pajama-03.jpg'],
+    image: '/images/products/m-pajama-01.jpg',
+    images: ['/images/products/m-pajama-01.jpg'],
   },
   {
     id: 'm-kurta-01',
@@ -569,8 +569,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       sleeve: 'Full sleeve with button cuff',
       weaveOrigin: 'Mainamati Weavers, Comilla',
     },
-    image: '/images/products/m-kurta-01.jpg',
-    images: ['/images/products/m-kurta-01.jpg'],
+    image: '',
+    images: [],
   },
 
   // ================= WOMEN'S COLLECTION =================

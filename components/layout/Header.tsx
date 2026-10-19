@@ -237,8 +237,8 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog
             >
               ISMAIL FASHION
             </span>
-            <span className="text-[9px] font-bangla tracking-wider uppercase text-stone-600 font-semibold pl-0.5">
-              ইসমাইল ফ্যাশন · প্রিমিয়াম ট্র্যাডিশনাল
+            <span className="text-[10px] font-bangla tracking-wider uppercase text-stone-700 font-bold pl-0.5">
+              ইসমাইল ফ্যাশন · ট্র্যাডিশনাল ফ্যাশন
             </span>
           </a>
         </div>
@@ -285,13 +285,13 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog
               onClick={() => {
                 setGender('men');
               }}
-              className={`px-3 sm:px-4 py-1.5 rounded-full transition-all duration-300 whitespace-nowrap cursor-pointer text-xs font-sans ${
+              className={`px-3.5 sm:px-4 py-1.5 rounded-full transition-all duration-300 whitespace-nowrap cursor-pointer text-xs font-bangla font-semibold ${
                 gender === 'men'
-                  ? 'bg-[#17382F] text-[#F7F4EC] shadow-sm font-semibold'
+                  ? 'bg-[#17382F] text-[#F7F4EC] shadow-sm font-bold'
                   : 'text-stone-600 hover:text-stone-900'
               }`}
             >
-              Men&apos;s Collection
+              মেইন কালেকশন
             </button>
             <button
               type="button"
@@ -300,13 +300,13 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog
               onClick={() => {
                 setGender('women');
               }}
-              className={`px-3 sm:px-4 py-1.5 rounded-full transition-all duration-300 whitespace-nowrap cursor-pointer text-xs font-sans ${
+              className={`px-3.5 sm:px-4 py-1.5 rounded-full transition-all duration-300 whitespace-nowrap cursor-pointer text-xs font-bangla font-semibold ${
                 gender === 'women'
-                  ? 'bg-[#6B2838] text-[#F7EFE6] shadow-sm font-semibold'
+                  ? 'bg-[#6B2838] text-[#F7EFE6] shadow-sm font-bold'
                   : 'text-stone-600 hover:text-stone-900'
               }`}
             >
-              Women&apos;s Collection
+              ওমেন কালেকশন
             </button>
           </div>
 
@@ -496,26 +496,26 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateSection, onOpenCatalog
                   onClick={() => {
                     setGender('men');
                   }}
-                  className={`py-2 text-xs font-medium rounded-md border text-center transition-all ${
+                  className={`py-2 text-xs font-bangla font-semibold rounded-md border text-center transition-all ${
                     gender === 'men'
-                      ? 'bg-[#17382F] text-[#F7F4EC] border-[#17382F] font-semibold shadow-xs'
+                      ? 'bg-[#17382F] text-[#F7F4EC] border-[#17382F] shadow-xs'
                       : 'bg-white text-stone-700 border-stone-200'
                   }`}
                 >
-                  Men&apos;s Wear
+                  মেইন কালেকশন
                 </button>
                 <button
                   type="button"
                   onClick={() => {
                     setGender('women');
                   }}
-                  className={`py-2 text-xs font-medium rounded-md border text-center transition-all ${
+                  className={`py-2 text-xs font-bangla font-semibold rounded-md border text-center transition-all ${
                     gender === 'women'
-                      ? 'bg-[#6B2838] text-[#F7EFE6] border-[#6B2838] font-semibold shadow-xs'
+                      ? 'bg-[#6B2838] text-[#F7EFE6] border-[#6B2838] shadow-xs'
                       : 'bg-white text-stone-700 border-stone-200'
                   }`}
                 >
-                  Women&apos;s Wear
+                  ওমেন কালেকশন
                 </button>
               </div>
             </div>

@@ -44,7 +44,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
       colorHex: '#121214',
       bgTone: '#000000',
       count: '3 Styles',
-      image: '/images/products/m-kabli-01.jpg',
+      image: '',
     },
     {
       key: 'waistcoats',
@@ -55,7 +55,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
       colorHex: '#63532C',
       bgTone: '#4a3d1e',
       count: '2 Styles',
-      image: '/images/products/m-waistcoat-01.jpg',
+      image: '',
     },
     {
       key: 'pajama-sets',
